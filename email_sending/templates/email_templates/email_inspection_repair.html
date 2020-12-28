@@ -1,0 +1,68 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<div class="email_title">
+			<h4>Доброго дня! Ми провели технічний огляд приладу надісланого в ремонт.
+				Повідомляємо Вам про виявлені несправності та орієнтовну вартість ремонту. 
+			</h4>
+		</div>
+		<div class="email_content">
+			<div class="devices">
+			<h4>Інформація:</h4>
+				<table border="2" cellpadding="5">
+					<tr>
+					    <th>Прилад</th>
+					    <th>Серійний/Інвентарний номери</th>
+					    <th>Комплектація</th>
+					    <th>Заявлена несправність</th>
+					    <th>Виявлені несправності</th>
+					    <th>Вартість ремонту (з ПДВ), Грн <em style="color: red;">*</em></th>
+					    <th>Рекомендації <em style="color: red;">**</em></th>
+					    <th>Вартість комплектуючих (з ПДВ), Грн</th>
+					    <th>Загальна вартість (з ПДВ), Грн</th>
+					    <th>Статус ремонту</th>
+					</tr>
+					<tr align="center">
+					  	<td>{{type_devices}} {{model_device}}</td>
+					  	<td>{{serial_number}} / {{inventory_number}}</td>
+					  	<td>{{complete_set_device}}</td>
+					  	<td>{{client_malfunction}}</td>
+					  	<td>{{mulfunction}}</td>
+					  	<td>{{price_repair}}</td>
+					  	<td>{{recommendations_repair}}</td>
+					  	<td>{{recommendations_repair_price}}</td>
+					  	<td>{{all_price}}</td>
+					  	<td>{{repair_status_value}}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="footer">
+			<h4><em style="color: red;">*</em> - вартість ремонту з урахуванням комплектуючих, 
+				робіт та транспортування. Гарантія на ремонтні роботи та затрачені матеріали
+				<em style="color: red;">{{warranty_period_value}}</em>
+			</h4></br>
+			<h4><em style="color: red;">**</em> - рекомендації щодо комплектуючих які на момент 
+				проведення діагностики в робочому стані але найближчим часом можуть вийти з ладу.
+				Ви можете відмовитися від запропонованих послуг повністю або частково. Гарантія на 
+				комплектуючі <em style="color: red;">{{warranty_period_value}}</em>
+			</h4>
+			<p>
+				Якщо Ви маєте якісь питання щодо проведеного технічного огляду просимо 
+				зв'язатися з нами.
+			</p>
+			<p>
+				<em style="color: red;">УВАГА!!!</em> Ремонт приладу почнеться після погодження умов ремонту та вартості.
+				<em style="color: red;">Очікуємо на Вашу відповідь.</em>
+			</p>
+			<p>Тел: +380 98 934 0567</p>
+			<p>Telegram, Viber +380 98 934 0567</p>
+			<p>E-mail: unimed.sensor@gmail.com</p>
+		</div>
+	</body>
+</html>

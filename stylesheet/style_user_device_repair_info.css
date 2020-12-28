@@ -1,0 +1,104 @@
+.container{
+	width: 98%;
+	justify-content: center;
+}
+.title_user_repair{
+	margin: 20px 0px 0px 0px;
+	justify-content: center;
+	text-align: center;
+}
+.title_user_repair h4{
+	font-size: 22px;
+	font-weight: 700;
+	color: red;
+}
+.datatable_container{
+	padding: 20px 0px;
+}
+.datatable_container table {
+	border-collapse: collapse; 
+	border: 2px solid grey; 
+}
+
+.datatable_container th, .datatable_container td {
+	border: 1px solid grey;
+	padding: 10px 15px;
+}
+.datatable_container tr:nth-child(2n) {background: #e8edff;}
+.datatable_container tr:hover td, .datatable_container tr:hover th {background: #F66F89;}
+
+.get_pdf_button a{
+	border: 2px #AAF53D solid;
+	padding: 10px;
+	border-radius: 20px;
+	background-color: #AAF53D;
+	color: #000;
+	-webkit-box-shadow: 2px 2px 2px 1px rgba(0,0,0,0.5);
+	box-shadow: 4px 4px 4px 3px rgba(0,0,0,0.5);
+}
+.get_pdf_button a:hover{
+	background-color: #F66F89;
+	border: 2px #F66F89 solid;
+}
+.get_pdf_button a:active{
+	position: relative;
+	top: 3px;
+	-webkit-box-shadow: 2px 2px 2px 1px rgba(0,0,0,0.5);
+	box-shadow: 2px 2px 2px 1px rgba(0,0,0,0.5);
+}
+.get_pdf_button{
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	padding: 10px 0px 30px 0px;
+	font-size: 16px;
+	font-weight: 700;
+}
+.pdf_datatable{
+	flex-basis: 50%;
+}
+.datatable_container th, .datatable_container td{
+	width: 50%;
+}
+@media(max-width:1600px){
+}
+@media(max-width:1200px){
+	.title_user_repair{
+		margin: 35px 0px 0px 0px;
+	}
+}
+@media(max-width:992px){
+	.title_user_repair{
+		margin: 50px 0px 0px 0px;
+	}
+}
+@media(max-width:767px){
+	.title_user_repair{
+		margin: 0px;
+	}
+	.datatable_container th, .datatable_container td{
+		font-size: 18px;
+	}
+	.datatable_container th, .datatable_container td {
+		border: 1px solid grey;
+		padding: 5px 15px;
+	}
+}
+@media(max-width:576px){
+	.datatable_container th, .datatable_container td {
+		padding: 5px;
+	}
+}
+@media(max-width:420px){
+	.datatable_container th, .datatable_container td{
+		font-size: 16px;
+	}
+}
+@media(max-width:330px){
+	.datatable_container th, .datatable_container td{
+		font-size: 14px;
+	}
+	.container{
+		padding: 2px;
+	}
+}

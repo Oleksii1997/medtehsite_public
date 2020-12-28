@@ -1,0 +1,38 @@
+{% extends 'wrapper.html'%}
+{% load static %}
+
+{% block meta_seo %}
+	<title>Медичне обладнання Unimed | Юнімед</title>
+	<meta name="description" content="Надійне і перевірене в роботі обладнання та комплектуючі Unimed | Юнімед, за доступною ціною">
+	<meta name="keywords" content="кабелі ЕКГ, датчики SpO2, купити пульсоксиметр, інтерфейсні кабелі, манжети НІАТ, ціна пульсоксиметра, електрокардіографи, монітори пацієнта, Unimed, Юнимед">
+	<meta name="robots" content="index, follow">
+{% endblock meta_seo %}
+
+{%block content %}
+	<link rel="stylesheet" href="{% static 'style_category_product.css' %}">
+	<div class="category_conteiner">
+		<div class="container">
+			<!--django tamplate language-->
+			<div class="category_tytle">
+				<h1>Категорії медичного обладнання</h1>
+			</div>
+			<div class="category">
+				{% for category_product in category_products %}
+					<div class="conteiner_one_category">
+						<div class="category_image">
+							<a href="{% url 'product_some_category' category_product.id %}">
+								<!--{% url 'product_some_category' category_product.id %}-->
+								<img src="{{category_product.category_image.url}}" alt="Категорія {{category_product.category}}">
+							</a>
+						</div>
+						<div class="name_category">
+								<a href="{% url 'product_some_category' category_product.id %}">
+									{{category_product.category}}
+								</a>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

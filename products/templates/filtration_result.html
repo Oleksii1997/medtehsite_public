@@ -1,0 +1,147 @@
+{% extends 'wrapper.html'%}
+{% load static %}
+
+{%block content %}
+	<link rel="stylesheet" href="{% static 'style_product_in_category.css' %}">
+	<script src="{% static 'js/script_filtration_form.js' %}"></script>
+
+	<div class="category_conteiner">
+		<div class="container">
+			<!--django tamplate language-->
+			<div class="category_tytle">
+				{% if page_list %}
+					<h2>
+						Результати пошуку за обраними параметрами 
+					</h2>
+				{% else %}
+					<h2>
+						Товари з обраними параметрами фільтрації відсутні
+					</h2>
+				{% endif%}
+			</div>
+
+			<div class="filter_products">
+				<form action="{% url 'product_filter' %}" method="post" id="filter_form" class="filter_form">
+					{% csrf_token %}
+					<div class="filter_container">
+						<div class="title_filter">
+							<h4>Фільтр товарів:</h4>
+						</div>
+						<div class="brand">
+							<a href="#" class="triangle_link_1">
+								<div class="link">
+									<div class="filter_item_title">
+										<span>Бренд виробника</span>
+									</div>
+									<div class="filter_item_triangle">
+										<span class="triangle_filter_1"></span>
+									</div>
+								</div>
+							</a>
+							<div class="list_brand filter_position_item">
+								<ul>
+									{% for brand in brands %}
+										{% if brand.id in select_brand %}
+											<label><li><input type="checkbox" class="checkbox_brand" checked="checked" id="checkbox_filter" name="list_brand" value="{{brand.id}}"> {{brand.brand_name}}</li></label>
+										{% else %}
+											<label><li><input type="checkbox" class="checkbox_brand" id="checkbox_filter" name="list_brand" value="{{brand.id}}"> {{brand.brand_name}}</li></label>
+										{% endif %}
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+						<div class="category_product">
+							<a href="#" class="triangle_link_2">
+								<div class="link">
+									<div class="filter_item_title">
+										<span>Категорії товару</span> 
+									</div>
+									<div class="filter_item_triangle">
+										<span class="triangle_filter_2"></span>
+									</div>
+								</div>
+							</a>
+							<div class="list_category filter_position_item">
+								<ul>
+									{% for category_product in category_products %}
+										{% if category_product.id in select_category%}
+											<label><li> <input type="checkbox" class="checkbox_category" checked="checked" id="checkbox_filter" name="list_category" value="{{category_product.id}}"> {{category_product.category}}</li></label>
+										{% else %}
+											<label><li> <input type="checkbox" class="checkbox_category" id="checkbox_filter" name="list_category" value="{{category_product.id}}"> {{category_product.category}}</li></label>
+										{% endif%}
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+						<div class="button_submit">
+							<button type="submit" class="filter_button"><span>Пошук</span></button>
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<div class="category">
+					{% for filter_product_item in page_list %}
+					<div class="conteiner_products_in_category">
+						<div class="product_image">
+							<a href="{% url 'selected_product' filter_product_item.product.id %}">
+								<img src="{{filter_product_item.image.url}}" alt="goods">
+							</a>
+							{% if filter_product_item.product.product_discount%}
+								<div class="discount_container">
+									-{{filter_product_item.product.product_discount}}%
+								</div>
+							{% endif %}
+						</div>
+						<div class="product_name">
+							<a href="{% url 'selected_product' filter_product_item.product.id %}">
+								{{filter_product_item.product.product_name}}
+							</a>
+						</div>
+						<div class="price">
+							<h4>
+								{{filter_product_item.product.product_price}} грн
+							</h4>
+						</div>
+						<div class="product_status">
+							<h4>
+								{{filter_product_item.product.status_product}}
+							</h4>
+						</div>
+						<div class="product_description">
+							<h4>
+								{{filter_product_item.product.description|safe|truncatechars_html:150}}
+							</h4>
+						</div>
+						<div class="add_in_basket">
+							<a href="{% url 'selected_product' filter_product_item.product.id %}">
+								Детальніше
+							</a>
+						</div>
+					</div>	
+					{% endfor %}
+			</div>
+			<div class="row_paginator">
+		        <ul class="pagination">
+		            {% if page_list.has_previous %}
+		            	<li class="arrow"><a href="{% url 'filter_result_paginator' page_list.previous_page_number %}">&laquo;</a></li>
+		            {% else %}
+		                <li class="arrow unavailable"><a href="">&laquo;</a></li>
+		            {% endif %}
+		            {% for page in page_list.paginator.page_range %}
+		                {% if page == page_list.number %}
+		                    <li class="current"><a href="{% url 'filter_result_paginator' page %}">{{ page }}</a></li>
+		                {% else %}
+		                    <li><a href="{% url 'filter_result_paginator' page %}">{{ page }}</a></li>
+		                {% endif %}
+		            {% endfor %}
+		            {% if page_list.has_next %}
+		                <li class="arrow"><a href="{% url 'filter_result_paginator' page_list.next_page_number %}">&raquo;</a></li>
+		            {% else %}
+		                <li class="arrow unavailable"><a href="">&raquo;</a></li>
+		            {% endif %}
+		        </ul>
+		    </div>
+		</div>
+	</div>
+{% endblock %}

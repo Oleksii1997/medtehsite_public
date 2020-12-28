@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<div class="email_title">
+			<h4>Дякуємо! Ваше замовлення прийняте на опрацювання.</h4>
+		</div>
+		<div class="products">
+			<h4>Ви замовили такі товари:</h4>
+				<table border="2" cellpadding="5">
+					<tr>
+					    <th>Назва товару</th>
+					    <th>Кількість</th>
+					    <th>Ціна за одиницю, Грн</th>
+					    <th>Ціна по позиції, Грн</th>
+					</tr>
+					{% for item in order %}
+						<tr align="center">
+						  	<td>{{item.product.product_name}}</td>
+						  	<td>{{item.number}}</td>
+						  	<td>{{item.product_price}}</td>
+						  	<td>{{item.total_price}}</td>
+						</tr>
+					{% endfor %}
+					<tr align="center">
+					  	<td colspan="3">Ціна по всім позиціях, Грн</td>
+					  	<td>{{total_price}} </td>
+					</tr>
+				</table>
+		</div>
+		<div class="footer">
+			<h4>В найближчий час представник компанії зв'яжеться з Вами для обговорення деталей.</h4>
+		</div>
+	</body>
+</html>

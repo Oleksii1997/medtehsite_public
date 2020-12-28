@@ -1,0 +1,123 @@
+{% extends 'wrapper.html'%}
+{% load static %}
+
+{%block content %}
+	<link rel="stylesheet" href="{% static 'style_registration.css' %}">
+	<script src="{% static 'js/script_valid_phonenumber.js' %}"></script>
+	<div class="registration_conteiner container">
+		<div class="title_registration_form">
+			<h4>Форма реєстрації користувача</h4>
+		</div>
+		<form action="{% url 'registration_new_user' %}" method="post">
+			{% csrf_token %}
+			<div class="registration_information">
+				<div class="custumer_name flex_form_registration">
+					<div class="form_span custumer_name_span">
+						<span>Ім'я:</span>
+						<span class="required_field">*</span>
+					</div>
+					<div class="form_input custumer_name_input">
+						<input type="text" size="64" required name="{{form.first_name.html_name}}"
+							value="{{request.POST.first_name}}">
+					</div>
+					<div class="hidden_view_password">
+
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.first_name}}</h4>
+					</div>
+				</div>
+				<div class="custumer_surname flex_form_registration">
+					<div class="form_span custumer_surname_span">
+						<span>Прізвище:</span>
+						<span class="required_field">*</span>
+					</div>
+					<div class="form_input custumer_surname_input">
+						<input type="text" required size="64" name="{{form.last_name.html_name}}"
+							value="{{request.POST.last_name}}">
+					</div>
+					<div class="hidden_view_password">
+											
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.last_name}}</h4>
+					</div>
+				</div>
+				<div class="custumer_email flex_form_registration">
+					<div class="form_span custumer_email_span">
+							<span>E-mail:</span>
+							<span class="required_field">*</span>
+					</div>
+					<div class="form_input custumer_email_input">
+						<input type="email" required size="64" name="{{form.email.html_name}}"
+							value="{{request.POST.email}}">
+					</div>
+					<div class="hidden_view_password">
+									
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.email}}</h4>
+					</div>
+				</div>
+				<div class="custumer_username flex_form_registration">
+					<div class="form_span custumer_username_span">
+						<span>Номер телефону:</span>
+						<span class="required_field">*</span>
+					</div>
+					<div class="form_input custumer_username_input">
+						<input type="tel" class="tel_input" required size="10" minlength="10" maxlength="10" placeholder="0953423123" pattern="[0-9]{10}" name="{{form.username.html_name}}"
+							value="{{request.POST.username}}">
+						<div class="valid_phone valid_phone_hidden">
+							<h4>Введіть коректний номер телефону в форматі "0953423123"</h4>
+						</div>
+					</div>
+					<div class="hidden_view_password">
+						
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.username}}</h4>
+					</div>
+				</div>
+				<div class="custumer_password flex_form_registration">
+					<div class="form_span custumer_password_span">
+							<span>Пароль:</span>
+							<span class="required_field">*</span>
+					</div>
+					<div class="form_input custumer_password_input">
+						<input type="password" required size="64" name="{{form.password1.html_name}}"
+							class="password" id="password1"  value="{{request.POST.password1}}">
+					</div>
+					<div class="hidden_view_password">
+						<a href="#" id="view_password1">Показати пароль</a>
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.password1}}</h4>
+					</div>
+				</div>
+				<div class="custumer_password_repeat flex_form_registration">
+					<div class="form_span custumer_password_span">
+							<span>Повторіть пароль:</span>
+							<span class="required_field">*</span>
+					</div>
+					<div class="form_input custumer_password_input">
+						<input type="password" required size="64" name="{{form.password2.html_name}}"
+							class="password" id="password2"  value="{{request.POST.password2}}">
+					</div>
+					<div class="hidden_view_password">
+						<a href="#" id="view_password2">Показати пароль</a>
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.password2}}</h4>
+					</div>
+				</div>
+
+			</div>
+			<div class="required">
+				<h4>* Поля обов'язкові для заповнення</h4>
+			</div>
+			<div class="button_make_registration">
+				<button type="submit" class="button_registration">Зареєструватися</button>
+			</div>
+		</form>
+	</div>
+{% endblock %}

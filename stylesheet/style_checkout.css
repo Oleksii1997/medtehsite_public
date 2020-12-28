@@ -1,0 +1,127 @@
+
+.content{
+	flex: 1 1 auto;
+}
+.title_checkout{
+	text-align: center;
+	padding: 10px 0px;
+}
+.container{
+	width: 98%;
+	justify-content: center;
+}
+.title_checkout h4{
+	font-size: 24px;
+	font-weight: 700;
+	color: red;
+}
+.total_order_price{
+	margin: 15px 10% 30px 0px;
+	text-align: right;
+}
+.total_order_price h4{
+	font-size: 20px;
+	font-weight: 700;
+	color: red;
+}
+.button_make_orders{
+	margin: 0px 10% 0px 0px;
+	padding: 0px 0px 20px 0px;
+	text-align: right;
+}
+.button_make_orders button{
+	border: 2px #AAF53D solid;
+	padding: 10px;
+	border-radius: 20px;
+	background-color: #AAF53D;
+	color: #000;
+	font-size: 20px;
+	-webkit-box-shadow: 2px 2px 2px 1px rgba(0,0,0,0.5);
+	box-shadow: 4px 4px 4px 3px rgba(0,0,0,0.5);
+}
+.button_make_orders button:hover{
+	background-color: #F66F89;
+	border: 2px #F66F89 solid;
+}
+.button_make_orders button:active{
+	position: relative;
+	top: 3px;
+	-webkit-box-shadow: 2px 2px 2px 1px rgba(0,0,0,0.5);
+	box-shadow: 2px 2px 2px 1px rgba(0,0,0,0.5);
+}
+.contact_information input, .contact_information textarea, .contact_information select{
+	border: 1px #fff solid;
+	font-size: 18px;
+	padding: 10px;
+	border-radius: 5px;
+	width: 95%;
+	box-shadow:1px 1px 5px 2px rgba(0,0,0,0.5);
+	-webkit-box-shadow:1px 1px 5px 2px rgba(0,0,0,0.5);
+	-moz-box-shadow:1px 1px 5px 2px rgba(0,0,0,0.5);
+}
+.contact_information select{
+	background-color: #fff;
+}
+.required_field, .required_field h4, .form_valid_field h4{
+	font-size: 18px;
+	color: red;
+}
+.contact_information span{
+	font-size: 24px;
+	padding: 0px 20px 0px 0px;
+}
+.contact_information{
+	display: block;
+}
+.flex_form_orders{
+	display: flex;
+	padding: 0px 0px 20px 0px;
+	align-items: center;
+}
+.form_span{
+	flex-basis:25%;
+}
+.form_input{
+	flex-basis:50%;
+}
+.form_valid_field{
+	flex-basis:25%;
+}
+
+@media(max-width:1600px){
+}
+@media(max-width:1200px){
+	.title_checkout{
+		padding: 50px 0px 10px 0px;
+	}
+	.flex_form_orders{
+		flex-wrap: wrap;
+		flex-direction: column;
+	}
+	.form_span{
+		flex-basis: 100%;
+		width: 100%;
+		text-align: left;
+		padding: 0px 0px 10px 0px;
+	}
+	.form_input{
+		flex-basis: 100%;
+		width: 100%;
+	}
+	.form_valid_field{
+		flex-basis: 100%;
+		padding: 5px 0px;
+	}
+}
+@media(max-width:992px){
+}
+@media(max-width:767px){
+	.title_checkout{
+		padding: 10px 0px;
+	}
+	.total_order_price{
+		margin: 15px 0px;
+	}
+}
+@media(max-width:576px){
+}

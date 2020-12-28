@@ -1,0 +1,64 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<div class="email_title">
+			<p>
+				Доброго дня! Ми отримали від Вас підтвердження на ремонт приладу.
+			</p>
+			<h4>
+				Статус ремонту: {{repair_status_value}}
+			</h4>
+		</div>
+
+		<div class="email_content">
+			<div class="devices">
+			<h4>Інформація:</h4>
+			{% if add_comment %}
+				<p><em style="color: red;">Додатковий коментар:</em> {{add_comment}} </p>
+			{% endif %}
+				<table border="2" cellpadding="5">
+					<tr>
+					    <th>Прилад</th>
+					    <th>Серійний/Інвентарний номери</th>
+					    <th>Комплектація</th>
+					    <th>Заявлена несправність</th>
+					    <th>Виявлені несправності</th>
+					    <th>Рекомендації</th>
+					    <th>Перелік погоджених робіт</th>
+					    <th>Вартість погоджених робіт (з ПДВ), Грн</th>
+					    <th>Статус ремонту</th>
+					</tr>
+					<tr align="center">
+					  	<td>{{type_devices}} {{model_device}}</td>
+					  	<td>{{serial_number}} / {{inventory_number}}</td>
+					  	<td>{{complete_set_device}}</td>
+					  	<td>{{client_malfunction}}</td>
+					  	<td>{{mulfunction}}</td>
+					  	<td>{{recommendations_repair}}</td>
+					  	<td>{{agreed_work_repair}}</td>
+					  	<td>{{agreed_work_repair_price}}</td>
+					  	<td>{{repair_status_value}}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+			
+		<div class="footer">
+			<h4> 
+				Гарантія на ремонтні роботи та затрачені матеріали <em style="color: red;">{{warranty_period_value}}</em>
+			</h4></br>
+			<p>
+				Якщо Ви маєте якісь питання просимо зв'язатися з нами.
+			</p>
+
+			<p>Тел: +380 98 934 0567</p>
+			<p>Telegram, Viber +380 98 934 0567</p>
+			<p>E-mail: unimed.sensor@gmail.com</p>
+		</div>
+	</body>
+</html>

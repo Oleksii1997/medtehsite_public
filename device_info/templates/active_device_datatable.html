@@ -1,0 +1,81 @@
+{% extends 'wrapper.html'%}
+{% load static %}
+
+{%block content %}
+	<link rel="stylesheet" href="{% static 'style_device_datatable.css' %}">
+	<div class="container for_padding_mobile">
+		<div class="datatable_container">
+			<table class="device_table display" style="width:100%">
+				<caption> Активні ремонти </caption>
+				<thead>
+					<tr>
+						<th class="mobile_hidden">ID</th>
+						<th>Тип приладу</th>
+						<th>Модель</th>
+						<th class="mobile_hidden">Замовник</th>
+						<th class="for_search_hidden">Місце роботи клієнта</th>
+						<th class="for_search_hidden">ЄДРПОУ</th>
+						<th class="mobile_hidden">Номер телефону</th>
+						<th>Статус ремонту</th>
+						<th class="mobile_hidden">Дата редагування</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for device in devices %}
+					<tr align="center">
+						<td class="mobile_hidden"><a href="{% url 'updated_device_info' device.id%}">{{device.id}}</a></td>
+						<td><a href="{% url 'updated_device_info' device.id%}">{{device.type_devices__device_type}}</a></td>
+						<td>{{device.model_device__device_model}}</td>
+						<td class="mobile_hidden"> {{device.select_user__name_client|title}} {{device.select_user__fathername_client|title}} {{device.select_user__lastname_client|title}} </td>
+						<td class="for_search_hidden">{{device.select_user__client_work_place}}</td>
+						<td class="for_search_hidden">{{device.select_user__client_edrpou}}</td>
+						<td class="mobile_hidden">{{device.select_user__custumer_phone}}</td>
+						<td>{{device.repair_status__repair_status}}</td>
+						<td class="mobile_hidden">{{device.updated|date:"d-m-Y"}}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+				<tfoot>
+					<tr>
+						<th class="mobile_hidden">ID</th>
+						<th>Тип приладу</th>
+						<th>Модель</th>
+						<th class="mobile_hidden">Замовник</th>
+						<th class="for_search_hidden">Місце роботи клієнта</th>
+						<th class="for_search_hidden">ЄДРПОУ</th>
+						<th class="mobile_hidden">Номер телефону</th>
+						<th>Статус ремонту</th>
+						<th class="mobile_hidden">Дата редагування</th>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+{% endblock %}
+
+{% block js_stuff %}
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+	<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.20/af-2.3.4/b-1.6.1/b-colvis-1.6.1/b-html5-1.6.1/b-print-1.6.1/cr-1.5.2/fc-3.3.0/kt-2.5.1/r-2.2.3/rg-1.1.1/rr-1.2.6/sp-1.0.1/sl-1.3.1/datatables.min.css"/>
+ 
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.20/af-2.3.4/b-1.6.1/b-colvis-1.6.1/b-html5-1.6.1/b-print-1.6.1/cr-1.5.2/fc-3.3.0/kt-2.5.1/r-2.2.3/rg-1.1.1/rr-1.2.6/sp-1.0.1/sl-1.3.1/datatables.min.js"></script>
+	<script type="text/javascript">
+		console.log("js_stuff");
+		$(document).ready(function(){
+   			$('.device_table').dataTable(
+   				{
+   					"order":[[0,"asc"]],
+   					"pageLength":10,
+   					dom: 'B<"clear">lfrtip',
+   					buttons: {
+       					name: 'primary',
+       					buttons: [ 'copy', 'excel', 'pdf' ]
+   				    }
+   				}
+   			);
+   			console.log("js_stuff");
+		});
+	</script>
+{% endblock js_stuff %}

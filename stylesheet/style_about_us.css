@@ -1,0 +1,275 @@
+.container{
+	width: 100%;
+}
+.about_us_info{
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	margin: 0px auto;
+	padding: 0px 0px 20px 0px;
+}
+.about_us_title, .title_map{
+	text-align: center;
+	padding: 15px 0px;
+	font-size: 24px;
+	font-style: italic;
+	font-weight: 700;
+	color: red;
+}
+.about_us_content{
+	font-style: italic;
+	font-size: 18px;
+	line-height: 2;
+	text-align: justify;
+}
+.contact_content{
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+.item_contact{
+	flex-basis: 25%;
+	max-width: 25%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.phone_contact{
+	display: flex;
+	justify-content: space-between;
+}
+.phone_item{
+	flex-basis: 33%;
+}
+.logo_info{
+	font-size: 16px;
+	padding: 10px 0px 0px 0px;
+	font-weight: 800;
+	color: #000;
+	font-style: italic;
+	text-align: center;
+}
+@media(max-width:1600px){
+}
+@media(max-width:1200px){
+	.about_us_info{
+		padding: 20px 0px 20px 0px;
+	}
+}
+@media(max-width:992px){
+	.about_us_title{
+		padding: 30px 0px 10px 0px;
+	}
+}
+@media(max-width:767px){
+	.item_contact{
+		flex-basis: 50%;
+		max-width: 50%;
+	}
+	.about_us_title{
+		padding: 0px 0px 10px 0px;
+	}
+	.about_us_info{
+		padding: 0px 0px 20px 0px;
+	}
+	.item_contact{
+		padding: 0px 0px 5px 0px;
+	}
+	.about_us_content{
+		line-height: 1.5;
+	}
+}
+@media(max-width:576px){
+	.item_contact{
+		flex-basis: 100%;
+		max-width: 100%;
+	}
+}
+
+/*Стилі контактної форми*/
+.about_us_contact_form{
+	padding: 0px 0px 25px 0px;
+}
+.description {
+	margin: 20px 0px 10px 0px;
+	color: red;
+	font-size: 16px;
+	line-height: 1.5;
+	font-weight: 300;
+	text-align: justify;
+}
+.contact_input{
+	display: block;
+}
+.contact_field{
+	display: flex;
+	padding: 0px 0px 20px 0px;
+	align-items: center;
+}
+.span_form{
+	flex-basis: 40%;
+}
+.input_form{
+	flex-basis: 60%;
+}
+.contact_form span{
+	font-size: 24px;
+	padding: 0px 20px 0px 0px;
+}
+.contact_form input, .contact_input{
+	border: 1px #fff solid;
+	font-size: 18px;
+	padding: 10px;
+	border-radius: 5px;
+	width: 100%;
+	box-shadow:1px 1px 5px 2px rgba(0,0,0,0.5);
+	-webkit-box-shadow:1px 1px 5px 2px rgba(0,0,0,0.5);
+	-moz-box-shadow:1px 1px 5px 2px rgba(0,0,0,0.5);
+}
+.error_input input{
+	box-shadow:1px 1px 5px 2px rgba(255,0,0,0.5);
+	-webkit-box-shadow:1px 1px 5px 5px rgba(255,0,0,0.5);
+	-moz-box-shadow:1px 1px 5px 5px rgba(255,0,0,0.5);
+}
+.valid_input input{
+	box-shadow:1px 1px 5px 2px rgba(0,255,0,0.5);
+	-webkit-box-shadow:1px 1px 5px 5px rgba(0,255,0,0.5);
+	-moz-box-shadow:1px 1px 5px 5px rgba(0,255,0,0.5);
+}
+.error_name_hidden, .success_logo_hidden{
+	display: none;
+}
+.error_message{
+	text-align: center;
+}
+.error_message{
+	font-size: 16px;
+	color: red;
+	padding: 10px 0px 0px 0px;
+}
+
+.need_consultation{
+	padding: 15px 0px 0px 0px;
+}
+.need_consultation button{
+	border: 2px #AAF53D solid;
+	padding: 15px;
+	font-size: 20px;
+	border-radius: 23px;
+	background-color: #AAF53D;
+	color: #000;
+	-webkit-box-shadow: 2px 2px 2px 1px rgba(0,0,0,0.5);
+	box-shadow: 4px 4px 4px 3px rgba(0,0,0,0.5);
+}
+.need_consultation button:hover{
+	background-color: #F66F89;
+	border: 2px #F66F89 solid;
+}
+.need_consultation button:active{
+	position: relative;
+	top: 3px;
+	-webkit-box-shadow: 2px 2px 2px 1px rgba(0,0,0,0.5);
+	box-shadow: 2px 2px 2px 1px rgba(0,0,0,0.5);
+}
+@media(max-width:1600px){
+}
+@media(max-width:1200px){
+}
+@media(max-width:992px){
+}
+@media(max-width:767px){
+	.contact_field{
+		-webkit-flex-direction: column;
+		-moz-flex-direction: column;
+		-ms-flex-direction: column;
+		-o-flex-direction: column;
+		flex-direction: column;
+		flex-wrap: wrap;
+	}
+	.span_form{
+		flex-basis: 100%;
+		text-align: left;
+		padding: 5px 0px;
+		width: 100%;
+	}
+	.contact_form span{
+		font-size: 20px;
+	}
+	.input_form{
+		flex-basis: 100%;
+		width: 100%;
+	}
+	.contact_field{
+		padding: 0px 0px 10px 0px;
+	}
+	.about_us_contact_form{
+		padding: 0px;
+	}
+	.description {
+		margin: 10px 0px;
+	}
+}
+@media(max-width:576px){
+}
+/*Стилі для вдалої відправки листа*/
+.success_help_messag {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.checkout_image {
+	width: 20%;
+	height: 20%;
+}
+.checkout_image img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+	padding: 20px;
+	border-radius: 50%;
+}
+.title_checkout_maked {
+	width: 80%;
+}
+.title_checkout_maked h4{
+	color: red;
+	font-weight: 700;
+	font-size: 16px;
+	text-align: center;
+}
+@media(max-width:1600px){
+}
+@media(max-width:1200px){
+}
+@media(max-width:992px){
+}
+@media(max-width:767px){
+	.checkout_image {
+		width: 40%;
+		height: 40%;
+	}
+	.checkout_image img{
+		padding: 5px;
+	}
+}
+@media(max-width:576px){
+	.title_checkout_maked {
+		width: 100%;
+	}
+}
+#map{
+	margin: auto;
+	display: flex;
+	justify-content: center;
+	max-width: 100%;
+	padding: 10px;
+}
+.iframe_map iframe{
+	max-width: 100%;
+}
+@media(max-width:767px){
+	#map{
+		padding: 10px 0px;
+	}
+}

@@ -1,0 +1,67 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<div class="email_title">
+			<h4>Вам надійшло нове замовлення</h4>
+		</div>
+		<div class="products">
+			<h4>Замовлені товари:</h4>
+				<table border="2" cellpadding="5">
+					<tr>
+					    <th>Назва товару</th>
+					    <th>Кількість</th>
+					    <th>Ціна за одиницію, Грн</th>
+					    <th>Ціна по позиції, Грн</th>
+					</tr>
+					{% for item in order %}
+						<tr align="center">
+						  	<td>{{item.product.product_name}}</td>
+						  	<td>{{item.number}}</td>
+						  	<td>{{item.product_price}}</td>
+						  	<td>{{item.total_price}}</td>
+						</tr>
+					{% endfor %}
+					<tr align="center">
+					  	<td colspan="3">Ціна по всім позиціях, Грн</td>
+					  	<td>{{total_price}} </td>
+					</tr>
+				</table>
+		</div>
+		<div class="custumer">
+			<h4>Інформація про замовника:</h4>
+				<table border="2" cellpadding="5">
+					<tr>
+					    <td align="center">Ім'я замовника</td>
+					    <th align="center">{{custumer.custumer_name}}</br>
+					    	{{custumer.custumer_fathername}}</br>
+					    	{{custumer.custumer_surname}}</th>
+					</tr>
+					<tr>
+					    <td align="center">Електронна адреса</td>
+					    <th align="center">{{custumer.custumer_email}}</th>
+					</tr>
+					<tr>
+					    <td align="center">Номер телефону</td>
+					    <th align="center">{{custumer.custumer_phone}}</th>
+					</tr>
+					<tr>
+					    <td align="center">Спосіб доставки</td>
+					    <th align="center">{{custumer.how_shipping}}</th>
+					</tr>
+					<tr>
+					    <td align="center">Адреса доставки</td>
+					    <th align="center">{{custumer.shipping_address}}</th>
+					</tr>
+					<tr>
+					    <td align="center">Коментар до замовлення</td>
+					    <th align="center">{{custumer.coment_to_order}}</th>
+					</tr>
+				</table>
+		</div>
+	</body>
+</html>

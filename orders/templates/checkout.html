@@ -1,0 +1,168 @@
+{% extends 'wrapper.html'%}
+{% load static %}
+
+{%block content %}
+	<link rel="stylesheet" href="{% static 'style_checkout.css' %}">
+		<div class="container">
+			<div class="title_checkout">
+				<h4>Товари в кошику</h4>
+			</div>
+			<form action="{% url 'checkout' %}" method="post" id="checkout_form" class="checkout_form">
+				{% csrf_token %}
+				<div class="list_busket">
+					<ul>
+						{% for product_in_busket in products_in_busket %}
+							<li>
+								<div class="busket_flex_container">
+									<div class="busket_product_name">
+										<a href="/products/category/product_id/{{product_in_busket.product.id}}">{{product_in_busket.product.product_name}}</a>
+									</div>
+									<div class="add_item_busket">
+										<a href="#" class="add_item_in_busket" id="add_item_in_busket"
+											data-number="{{product_in_busket.number}}" data-product_id="{{product_in_busket.id}}">+</a>
+									</div>
+									<div class="busket_items_number">
+										<h4 class="busket_items_number_change">{{product_in_busket.number}}</h4>
+									</div>
+									<div class="minus_item_busket">
+										<a href="#" class="minus_item_in_busket" id="minus_item_in_busket"
+											data-number="{{product_in_busket.number}}" data-product_id="{{product_in_busket.id}}">-</a>
+									</div>
+									<div class="busket_price_one_items">
+										<h4>{{product_in_busket.product_price}}</h4>
+									</div>
+									<div class="total_price_one_position">
+										<h4 class="total-price-one-position-checkout">{{product_in_busket.total_price}}</h4>
+									</div>
+									<div class="currency">
+										<h4>Грн</h4>
+									</div>
+									<div class="busket_delete_item">
+										<a href="#" class="list_delete" data-product_id="{{product_in_busket.id}}">X</a>
+									</div>
+								</div>
+							</li>
+						{% endfor %}
+					</ul>  
+				</div>
+
+				<div class="contact_information">
+					<div class="custumer_name flex_form_orders">
+						<div class="form_span custumer_name_span">
+								<span>Ім'я:</span>
+								<span class="required_field">*</span>
+						</div>
+						<div class="form_input custumer_name_input">
+							<input type="text" size="64" required name="{{form.custumer_name.html_name}}"
+									value="{{user_information.first_name}}">
+						</div>
+						<div class="form_valid_field">
+							<h4>{{form.errors.custumer_name}}</h4>
+						</div>
+					</div>
+					<div class="custumer_fathername flex_form_orders">
+						<div class="form_span custumer_fathername_span">
+								<span>По батькові:</span>
+								<span class="required_field">*</span>
+						</div>
+						<div class="form_input custumer_fathername_input">
+							<input type="text" required size="64" name="{{form.custumer_fathername.html_name}}"
+									value="{{request.POST.custumer_fathername}}">
+						</div>
+						<div class="form_valid_field">
+							<h4>{{form.errors.custumer_fathername}}</h4>
+						</div>
+					</div>
+					<div class="custumer_surname flex_form_orders">
+						<div class="form_span custumer_surname_span">
+								<span>Прізвище:</span>
+								<span class="required_field">*</span>
+						</div>
+						<div class="form_input custumer_surname_input">
+							<input type="text" required size="64" name="{{form.custumer_surname.html_name}}"
+									value="{{user_information.last_name}}">
+						</div>
+						<div class="form_valid_field">
+							<h4>{{form.errors.custumer_surname}}</h4>
+						</div>
+					</div>
+					<div class="custumer_email flex_form_orders">
+						<div class="form_span custumer_email_span">
+								<span>E-mail:</span>
+								<span class="required_field">*</span>
+						</div>
+						<div class="form_input custumer_email_input">
+							<input type="email" required size="64" name="{{form.custumer_email.html_name}}"
+									value="{{user_information.email}}">
+						</div>
+						<div class="form_valid_field">
+							<h4>{{form.errors.custumer_email}}</h4>
+						</div>
+					</div>
+					<div class="custumer_phone flex_form_orders">
+						<div class="form_span custumer_phone_span">
+								<span>Номер телефону:</span>
+								<span class="required_field">*</span>
+						</div>
+						<div class="form_input custumer_phone_input">
+							<input type="tel" placeholder="0981236523" minlength="10" maxlength="10" required size="32" name="{{form.custumer_phone.html_name}}"
+									value="{{user_information.username}}">
+						</div>
+						<div class="form_valid_field">
+							<h4>{{form.errors.custumer_phone}}</h4>
+						</div>
+					</div>
+					<div class="how_shipping flex_form_orders">
+						<div class="form_span how_shipping_span">
+							<span>Спосіб доставки:</span>
+						</div>
+						<div class="form_input how_shipping_input">
+							<select name="{{form.how_shipping.html_name}}" value="{{request.POST.how_shipping}}">
+								<option value="Самовивіз з офісу">Самовивіз з офісу</option>
+								<option value="Нова пошта" selected>Нова пошта</option>
+								<option value="Укрпошта">Укрпошта</option>
+							</select>
+						</div>
+						<div class="form_valid_field">
+							<h4>{{form.errors.how_shipping}}</h4>
+						</div>
+					</div>
+					<div class="shipping_address flex_form_orders">
+						<div class="form_span shipping_address_span">
+							<span>Адреса доставки:</span>
+						</div>
+						<div class="form_input shipping_address_input">
+							<input type="text" size="256" name="{{form.shipping_address.html_name}}"
+									value="{{request.POST.shipping_address}}">
+						</div>
+						<div class="form_valid_field">
+							<h4>{{form.errors.shipping_address}}</h4>
+						</div>
+					</div>
+					<div class="coment_to_order flex_form_orders">
+						<div class="form_span coment_to_order_span">
+							<span>Додатковий коментар:</span>
+						</div>
+						<div class="form_input coment_to_order_input">
+							<textarea name="{{form.coment_to_order.html_name}}" rows="5">{{request.POST.coment_to_order}}</textarea>
+						</div>
+						<div class="form_valid_field">
+							<h4>{{form.errors.coment_to_order}}</h4>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="required_field">
+					<h4>* Поле обов'язкове для заповнення</h4>
+				</div>
+				<div class="total_order_price">
+					<h4>Сума замовлення: <span id="total_order_price_checkout">{{all_total_price}}</span> Грн</h4>
+				</div>
+				<div class="button_make_orders">
+					<button type="submit" class="button_order">Замовити</button>
+				</div>
+
+			</form>
+		</div>
+{% endblock %}

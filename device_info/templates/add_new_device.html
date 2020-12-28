@@ -1,0 +1,560 @@
+{% extends 'wrapper.html'%}
+{% load static %}
+
+{%block content %}
+	<link rel="stylesheet" href="{% static 'style_add_device.css' %}">
+	<div class="container for_padding">
+		<div class="title_add_device">
+			<h4>Додати інформацію про прилад</h4>
+		</div>
+		<form action="{% url 'new_device_form' %}" method="post" id="new_device_form" class="new_device_form">
+			{% csrf_token %}
+			<div class="add_device device_admission">
+				<div class="type_device flex_device">
+					<div class="form_span device_type_span">
+							<span>Тип приладу:</span>
+							<span class="required_field">*</span>
+					</div>
+					<div class="form_input type_device">
+						<select class="type_device_select" name="{{form.type_devices.html_name}}" value="{{request.POST.type_devices}}">
+							{% for device in devices %}
+								<option value="{{device.id}}">{{device.device_type}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.type_devices}}</h4>
+					</div>
+				</div>
+
+				<div class="model_device flex_device">
+					<div class="form_span device_model_span">
+							<span>Модель приладу:</span>
+							<span class="required_field">*</span>
+					</div>
+					<div class="form_input model_device">
+						<select class="select_model_device" name="{{form.model_device.html_name}}" value="{{request.POST.model_device}}">
+							{% for model_device in model_devices %}
+								<option value="{{model_device.id}}">{{model_device.type_device}} {{model_device.device_model}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.model_device}}</h4>
+					</div>
+				</div>
+
+
+				<div class="add_type_or_model flex_device">
+					<div class="form_span">
+
+					</div>
+					<div class="form_input new_model_device">
+						<div class="title_new_model">
+							Якщо в списку вибору типу прилату чи моделі відсутній необхідний
+							пункт, то спочатку створіть його натиснувши на посилання <a href="{% url 'add_type_model' %}">"Створити"</a>.
+						</div>
+					</div>
+					<div class="form_valid_field">
+						
+					</div>
+				</div>
+
+				<div class="inventory_number flex_device">
+					<div class="form_span inventory_span">
+							<span>Інвентарний номер:</span>
+							<span class="required_field">*</span>
+					</div>
+					<div class="form_input inventory_device">
+						<input type="text" size="24" required name="{{form.inventory_number.html_name}}" value="{{request.POST.inventory_number}}">
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.inventory_number}}</h4>
+					</div>
+				</div>
+
+				<div class="serial_number flex_device">
+					<div class="form_span serial_span">
+							<span>Серійний номер:</span>
+							<span class="required_field">*</span>
+					</div>
+					<div class="form_input serial_device">
+						<input type="text" size="24" required name="{{form.serial_number.html_name}}" value="{{request.POST.serial_number}}">
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.serial_number}}</h4>
+					</div>
+				</div>
+
+				<div class="client_malfunction flex_device">
+					<div class="form_span client_malfunction_span">
+							<span>Заявлена клієнтом несправність:</span>
+							<span class="required_field">*</span>
+					</div>
+					<div class="form_input client_malfunction_input">
+						<textarea name="{{form.client_malfunction.html_name}}" required value="{{request.POST.client_malfunction}}" rows="5"></textarea>
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.client_malfunction}}</h4>
+					</div>
+				</div>
+
+				<div class="complete_set_device flex_device">
+					<div class="form_span complete_set_device_span">
+							<span>Прилад надійшов в комплектації:</span>
+							<span class="required_field">*</span>
+					</div>
+					<div class="form_input complete_set_device_input">
+						<textarea name="{{form.complete_set_device.html_name}}" required value="{{request.POST.complete_set_device}}" rows="5"></textarea>
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.complete_set_device}}</h4>
+					</div>
+				</div>
+
+				<div class="add_comment_device flex_device">
+					<div class="form_span add_comment_device_span">
+							<span>Додатковий коментар:</span>
+					</div>
+					<div class="form_input add_comment_device_input">
+						<textarea name="{{form.add_comment.html_name}}" value="{{request.POST.add_comment}}" rows="5"></textarea>
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.add_comment}}</h4>
+					</div>
+				</div>
+
+				<div class="repair_status flex_device">
+					<div class="form_span repair_status_span">
+							<span>Статус ремонту:</span>
+							<span class="required_field">*</span>
+					</div>
+					<div class="form_input repair_status_input">
+						<select class="repair_status_list" name="{{form.repair_status.html_name}}" value="{{request.POST.status.repair_status}}">
+							{% for status in status_repair %}
+								<option value="{{status.id}}">{{status.repair_status}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.repair_status}}</h4>
+					</div>
+				</div>
+
+				<div class="send_email flex_device">
+					<div class="form_span send_email_span">
+							<span>Відправляти лист клієнту?</span>
+					</div>
+					<div class="form_input send_email_input">
+   						<div class="form_toggle">
+							<div class="form_toggle-item item-1">
+								<input id="fid-1" type="radio" name="send_email" value="True">
+								<label for="fid-1">Так</label>
+							</div>
+							<div class="form_toggle-item item-2">
+								<input id="fid-2" type="radio" name="send_email" value="False" checked>
+								<label for="fid-2">Ні</label>
+							</div>
+						</div>
+					</div>
+					<div class="form_valid_field">
+						
+					</div>
+				</div>
+
+				<div class="pay_repair_status flex_device">
+					<div class="form_span pay_repair_status_span">
+							<span>Статус оплати:</span>
+							<span class="required_field">*</span>
+					</div>
+					<div class="form_input pay_repair_status_input">
+						<select class="pay_repair_status_list" name="{{form.pay_repair_status.html_name}}" value="{{request.POST.status.pay_repair_status}}">
+							{% for status in pay_status %}
+								{% if status.id == 2%}
+									<option value="{{status.id}}" selected="selected">{{status.pay_repair_status}}</option>
+								{% else %}
+									<option value="{{status.id}}">{{status.pay_repair_status}}</option>
+								{% endif %}
+							{% endfor %}
+						</select>
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.pay_repair_status}}</h4>
+					</div>
+				</div>
+
+				<div class="pay_send_email flex_device">
+					<div class="form_span pay_send_email_span">
+							<span>Повідомити клієнту про надходження оплати?</span>
+					</div>
+					<div class="form_input pay_send_email_input">
+   						<div class="form_toggle">
+							<div class="form_toggle-item item-3">
+								<input id="fid-3" type="radio" name="pay_send_email" value="True">
+								<label for="fid-3">Так</label>
+							</div>
+							<div class="form_toggle-item item-4">
+								<input id="fid-4" type="radio" name="pay_send_email" value="False" checked>
+								<label for="fid-4">Ні</label>
+							</div>
+						</div>
+					</div>
+					<div class="form_valid_field">
+						
+					</div>
+				</div>
+			</div>
+
+			<div class="add_device need_spare_part need_spare_hidden">
+				<div class="title_add_device">
+					<h4>Які запчастини потрібно купити?</h4>
+				</div>
+				<div class="need_spare_part flex_device">
+					<div class="form_span need_spare_part_span">
+							<span>Необхідні матеріали:</span>
+							<span class="required_field">*</span>
+					</div>
+					<div class="form_input need_spare_part_input">
+						<textarea class="need_spate_textarea" name="{{form.need_spare_part.html_name}}" value="{{request.POST.need_spare_part}}" rows="3"></textarea>
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.need_spare_part}}</h4>
+					</div>
+				</div>
+			</div>
+			
+			<div class="add_device method_delivery_part delivery_hidden">
+				<div class="title_add_device">
+					<h4>Оберіть спосіб доставки</h4>
+				</div>
+				<div class="method_delivery flex_device">
+					<div class="form_span method_delivery_span">
+							<span>Спосіб доставки:</span>
+							<span class="required_field">*</span>
+					</div>
+					<div class="form_input method_delivery_input">
+						<select class="delivery_select" name="{{form.method_delivery.html_name}}" value="{{request.POST.method_delivery}}">
+							{% for delivery in method_delivery %}
+								<option value="{{delivery.id}}">{{delivery.delivery_method}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.method_delivery}}</h4>
+					</div>
+				</div>
+
+				<div class="invoice_part flex_device invoice_hidden">
+					<div class="form_span invoice_span">
+							<span>Номер накладної:</span>
+							<span class="required_field">*</span>
+					</div>
+					<div class="form_input invoice_input">
+						<input class="invoice_textarea" type="text" size="32" name="{{form.invoice.html_name}}" value="{{request.POST.invoice}}">
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.invoice}}</h4>
+					</div>
+				</div>
+			</div>
+
+			<div class="add_device inspection_device inspection_device_hidden">
+				<div class="title_add_device">
+					<h4>Інформація про прилад після технічного огляду</h4>
+				</div>
+				<div class="mulfunction flex_device">
+					<div class="form_span mulfunction_span">
+							<span>Несправність після огляду:</span>
+							<span class="required_field">*</span>
+					</div>
+					<div class="form_input mulfunction_input">
+						<textarea class="after_inspection" name="{{form.mulfunction.html_name}}" value="{{request.POST.mulfunction}}" rows="3"></textarea>
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.mulfunction}}</h4>
+					</div>
+				</div>
+
+				<div class="price_repair flex_device">
+					<div class="form_span price_repair_span">
+							<span>Вартість ремонту з ПДВ (Грн):</span>
+							<span class="required_field">*</span>
+					</div>
+					<div class="form_input price_repair_input">
+						<input class="after_inspection" type="number" step="0.01" min="0" max="99999999.99" name="{{form.price_repair.html_name}}" value="0.00">
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.price_repair}}</h4>
+					</div>
+				</div>
+
+				<div class="recommendations_repair flex_device">
+					<div class="form_span recommendations_repair_span">
+							<span>Рекомендовано замінити:</span>
+							<span class="required_field">*</span>
+					</div>
+					<div class="form_input recommendations_repair_input">
+						<textarea class="after_inspection" name="{{form.recommendations_repair.html_name}}" value="{{request.POST.recommendations_repair}}" rows="3"></textarea>
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.recommendations_repair}}</h4>
+					</div>
+				</div>
+
+
+				<div class="recommendations_repair_price flex_device">
+					<div class="form_span recommendations_repair_price_span">
+							<span>Вартість рекомендованих робіт з ПДВ (Грн):</span>
+							<span class="required_field">*</span>
+					</div>
+					<div class="form_input recommendations_repair_price_input">
+						<input class="after_inspection" type="number" step="0.01" min="0" max="99999999.99" name="{{form.recommendations_repair_price.html_name}}" value="0.00">
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.recommendations_repair_price}}</h4>
+					</div>
+				</div>
+
+				<div class="warranty_period flex_device">
+					<div class="form_span warranty_period_span">
+							<span>Термін гарантії:</span>
+							<span class="required_field">*</span>
+					</div>
+					<div class="form_input warranty_period_input">
+						<select class="warranty_period_select" name="{{form.warranty_period.html_name}}" value="{{request.POST.warranty_period}}">
+							{% for warranty in warrantys %}
+								{% if warranty.id == 3 %}
+									<option value="{{warranty.id}}" selected="selected">{{warranty.warranty_periods}}</option>
+								{% else %}
+									<option value="{{warranty.id}}">{{warranty.warranty_periods}}</option>
+								{% endif %}
+							{% endfor %}
+						</select>
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.warranty_period}}</h4>
+					</div>
+				</div>
+			</div>
+
+			<div class="add_device agreed_work agreed_work_repair_hidden">
+				<div class="title_add_device">
+					<h4>Погоджені з клієнтом роботи та послуги</h4>
+				</div>
+
+				<div class="agreed_work_repair flex_device">
+					<div class="form_span agreed_work_repair_span">
+							<span>Погоджені з клієнтом роботи:</span>
+							<span class="required_field">*</span>
+					</div>
+					<div class="form_input agreed_work_repair_input">
+						<textarea class="after_agreed" name="{{form.agreed_work_repair.html_name}}" value="{{request.POST.agreed_work_repair}}" rows="3"></textarea>
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.agreed_work_repair}}</h4>
+					</div>
+				</div>
+
+				<div class="agreed_work_repair_price flex_device">
+					<div class="form_span agreed_work_repair_price_span">
+							<span>Загальна вартість робіт та матеріалів з ПДВ (Грн):</span>
+							<span class="required_field">*</span>
+					</div>
+					<div class="form_input agreed_work_repair_price_input">
+						<input class="after_agreed" type="number" step="0.01" min="0" max="99999999.99" name="{{form.agreed_work_repair_price.html_name}}" value="0.00">
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.agreed_work_repair_price}}</h4>
+					</div>
+				</div>
+			</div>
+			
+			<div class="add_device work_to_device work_device_hidden">
+				<div class="title_add_device">
+					<h4>Проведені роботи та затрачені матеріали</h4>
+				</div>
+				<div class="performed_work flex_device">
+					<div class="form_span performed_work_span">
+							<span>Проведені роботи:</span>
+							<span class="required_field">*</span>
+					</div>
+					<div class="form_input performed_work_input">
+						<textarea class="work_textarea" name="{{form.performed_work.html_name}}" value="{{request.POST.performed_work}}" rows="3"></textarea>
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.performed_work}}</h4>
+					</div>
+				</div>
+
+				<div class="materials flex_device">
+					<div class="form_span materials_span">
+							<span>Затрачені матеріали:</span>
+							<span class="required_field">*</span>
+					</div>
+					<div class="form_input materials_input">
+						<textarea class="work_textarea" name="{{form.materials.html_name}}" value="{{request.POST.materials}}" rows="3"></textarea>
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.materials}}</h4>
+					</div>
+				</div>
+			</div>
+
+			<div class="add_device select_user_device">
+				<div class="title_add_device">
+					<h4>Додати інформацію про замовника</h4>
+				</div>
+			
+				<div class="select_user_phone flex_device">
+					<div class="form_span where_user_span">
+							<span>Обрати замовника:</span>
+					</div>
+					<div class="form_input select_user_input">
+						<select class="select_user" name="{{form.select_user.html_name}}" value="{{request.POST.select_user}}">
+							<optgroup style="max-height: 100px;" label="Оберіть клієнта">
+								{% for register_user in register_users %}
+									<option value={{register_user.id}}>{{register_user.lastname_client}} {{register_user.name_client}} {{register_user.custumer_phone}}</option>
+								{% endfor %}
+							</optgroup>
+						</select>
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.select_user_phone}}</h4>
+					</div>
+				</div>
+		
+				<div class="search_user flex_device">
+					<div class="form_span search_user_span">
+							<span>Знайти клієнта:</span>
+					</div>
+					<div class="form_input search_user_input">
+						<input class="user_search" type="text" size="64" name="search_client" placeholder="Пошук клієнта..." value="">
+						<div class="required_field help_text">
+							<h4>Якщо в списку відсутній замовник якому належить прилад, то додайте його самостійно, натиснувши
+								кнопку "Додати замовника".</h4>
+						</div>
+					</div>
+					<div class="form_valid_field valid_inform_repair not_user_hidden">
+						<h4>{{form.errors.select_user_phone}}</h4>
+						<h4 style="color: red;">Такого клієнта не існує!!!</h4>
+					</div>
+				</div>
+			</div>
+
+			<div class="add_new_user add_device display_none_user">
+				<div class="title_add_device">
+					<h4>Інформація про нового замовника</h4>
+				</div>
+
+				<div class="name_client flex_device">
+					<div class="form_span name_client_span">
+							<span>Ім'я:</span>
+							<span class="required_field">*</span>
+					</div>
+					<div class="form_input name_client_input">
+						<input class="clean" type="text" size="32" name="{{form.name_client.html_name}}" value="{{request.POST.name_client}}">
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.name_client}}</h4>
+					</div>
+				</div>
+				<div class="fathername_client flex_device">
+					<div class="form_span name_client_span">
+							<span>По батькові:</span>
+							<span class="required_field">*</span>
+					</div>
+					<div class="form_input lastname_client_input">
+						<input class="clean" type="text" size="32" name="{{form.fathername_client.html_name}}" value="{{request.POST.fathername_client}}">
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.fathername_client}}</h4>
+					</div>
+				</div>
+				<div class="lastname_client flex_device">
+					<div class="form_span fathername_client_span">
+							<span>Прізвище:</span>
+							<span class="required_field">*</span>
+					</div>
+					<div class="form_input fathername_client_input">
+						<input class="clean" type="text" size="32" name="{{form.lastname_client.html_name}}" value="{{request.POST.lastname_client}}">
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.lastname_client}}</h4>
+					</div>
+				</div>
+				<div class="custumer_phone flex_device">
+					<div class="form_span custumer_phone_span">
+							<span>Номер телефону:</span>
+							<span class="required_field">*</span>
+					</div>
+					<div class="form_input custumer_email_input">
+						<input class="clean" type="tel" placeholder="0953423123" size="64" name="{{form.custumer_phone.html_name}}"
+								value="{{request.POST.custumer_phone}}">
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.custumer_phone}}</h4>
+					</div>
+				</div>
+				<div class="custumer_email flex_device">
+					<div class="form_span custumer_email_span">
+							<span>E-mail:</span>
+							<span class="required_field">*</span>
+					</div>
+					<div class="form_input custumer_email_input">
+						<input class="clean" type="email" size="64" name="{{form.custumer_email.html_name}}"
+								value="{{request.POST.custumer_email}}">
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.custumer_email}}</h4>
+					</div>
+				</div>
+				<div class="custumer_work flex_device">
+					<div class="form_span custumer_work_span">
+							<span>Організація :</span>
+							<span class="required_field">*</span>
+					</div>
+					<div class="form_input custumer_work_input">
+						<textarea class="clean" name="{{form.client_work_place.html_name}}" value="{{request.POST.client_work_place}}" rows="3"></textarea>
+						<div class="required_field help_text">
+							<h4>Організація яку представляє замоник. Якщо, це приватне замовлення, то
+								напишіть "Приватне замовлення"</h4>
+						</div>
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.client_work_place}}</h4>
+					</div>
+				</div>
+				<div class="custumer_edrpou flex_device">
+					<div class="form_span custumer_work_span">
+							<span>Код ЄДРПОУ:</span>
+					</div>
+					<div class="form_input custumer_edrpou_input">
+						<input type="text" size="32" name="{{form.client_edrpou.html_name}}" value="{{request.POST.client_edrpou}}">
+						<div class="required_field help_text">
+							<h4>Якщо хочете повернутися до вибору замовника з бази даних
+								натисніть "Назад". При цьому очистяться поля форми в розділі
+								"Інформація про нового замовника"</h4>
+						</div>
+					</div>
+					<div class="form_valid_field">
+						<h4>{{form.errors.client_edrpou}}</h4>
+					</div>
+				</div>
+			</div>
+			<div class="required_field">
+				<h4>* Поле обов'язкове для заповнення</h4>
+			</div>
+			<div class="device_button">
+				<div class="add_client">
+					<button type="button" class="add_client_button">Додати замовника</button>
+				</div>
+				<div class="add_device_butt">
+					<button type="submit" class="add_device_button">Додати прилад</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<form class="search_user_form" action="{% url 'search_user' %}">{% csrf_token %}</form><!--for ajax url-->
+	<form class="search_type_device" action="{% url 'search_type_device' %}">{% csrf_token %}</form><!--for ajax url-->
+	<form class="search_model_device" action="{% url 'search_model_device' %}">{% csrf_token %}</form><!--for ajax url-->
+{% endblock %}

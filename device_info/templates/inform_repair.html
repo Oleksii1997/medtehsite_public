@@ -1,0 +1,140 @@
+{% extends 'wrapper.html'%}
+{% load static %}
+
+{%block content %}
+	<link rel="stylesheet" href="{% static 'style_inform_repair.css' %}">
+	<div class="container">
+		<div class="title_add_device for_padding">
+			<h4>Повідомте клієнту про стан ремонту приладу</h4>
+		</div>
+		<form action="{% url 'inform_repair' %}" method="post" id="new_device_form" class="new_device_form">
+			{% csrf_token %}
+
+			<div class="add_device select_user_device">
+				<div class="select_user_phone flex_device">
+					<div class="form_span where_user_span">
+							<span>Обрати замовника:</span>
+					</div>
+					<div class="form_input select_user_input">
+						<select class="select_user select_user_devices" name="{{form.select_user.html_name}}" value="{{request.POST.select_user}}">
+							<optgroup style="max-height: 100px;">
+								<option value="False">Оберіть клієнта... Доступно {{number_users}}</option>
+								{% for register_user in register_users %}
+									<option value={{register_user.id}}>{{register_user.lastname_client}} {{register_user.custumer_phone}}</option>
+								{% endfor %}
+							</optgroup>
+						</select>
+					</div>
+					<div class="form_valid_field select_user_input_hidden">
+						<h4 style="color: red;">Оберіть клієнта і натисніть "Пошук"!!!</h4>
+					</div>
+				</div>
+		
+				<div class="search_user flex_device">
+					<div class="form_span search_user_span">
+							<span>Знайти клієнта:</span>
+					</div>
+					<div class="form_input search_user_input">
+						<input class="user_search user_search_inf_rep" type="text" size="64" name="search_client" placeholder="Пошук клієнта..." value="">
+					</div>
+					<div class="form_valid_field valid_inform_repair not_user_hidden">
+						<h4 style="color: red;">Такого клієнта не існує!!!</h4>
+					</div>
+				</div>
+			</div>
+
+			<div class="date_form">
+				<div class="sub_title_date date_form_item">
+					<h4>Ремонти за період       </h4>
+				</div>
+				<div class="from_date date_form_item">
+					<div class="title_date">
+						<h4>З: </h4>
+					</div>
+					<div class="input_date">
+						<input type="date" class="input_from_date" name="calendar_from" value="{{from_date|date:'Y-m-d'}}" max="{{max_date|date:'Y-m-d'}}" min="2020-01-01">
+					</div>
+				</div>
+				<div class="to_date date_form_item">
+					<div class="title_date">
+						<h4>До:</h4>
+					</div>
+					<div class="input_date">
+						<input type="date" class="input_to_date" name="calendar_to" value="{{to_date|date:'Y-m-d'}}" max="{{max_date|date:'Y-m-d'}}" min="2020-01-01">
+					</div>
+				</div>
+				<div class="button_date date_form_item">
+					<div class="select_date">
+						<button type="submit" class="select_data">Пошук</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="block_without_device inform_repair_hidden">
+				<div class="without_device">
+					<div class="without_device_block">
+						<h3>За обраними параметрами ремонти відсутні</h3>
+					</div>
+				</div>
+			</div>
+
+			<div class="activ_user_device inform_repair_datateble inform_repair_hidden">
+				<div class="title_add_device">
+					<h4>Історія ремонтів клієнта</h4>
+				</div>
+				<div class="title_comment">
+					<p> <em>*</em> Оберіть прилади про стан ремонту яких ви хочете повідомити клієнту. В полі форми "Додатковий коментар" ви 
+						можете написати супровідний текст який буде розміщений на початку листа, перед основною інформацією 
+						про стан ремонту приладів. В цій таблиці виведені всі прилади які були в ремонті за обраний період часу.
+					</p>
+				</div>
+
+				<div class="datatable_container">
+					<table class="device_table display" style="width:100%" border="2" cellpadding="5">
+						<thead class="thead_inform_repair">
+							<tr align="center">
+								<th>Обрати</th>
+								<th>ID</th>
+								<th class="mobile_hidden">Тип приладу</th>
+								<th>Модель</th>
+								<th class="mobile_hidden">Статус ремонту</th>
+								<th class="mobile_hidden">Статус оплати</th>
+								<th class="mobile_hidden">Дата створення</th>
+								<th class="mobile_hidden_370">Дата редагування</th>
+							</tr>
+						</thead>
+						<tbody class="device_in_repair">
+							<!--AJAX wiev-->
+						</tbody>
+					</table>
+				</div>
+				<div class="add_device select_user_device">
+					<div class="client_malfunction flex_device">
+						<div class="form_span client_malfunction_span">
+								<span>Додатковий коментар:</span>
+								<span class="required_field"></span>
+						</div>
+						<div class="form_input client_malfunction_input">
+							<textarea name="add_comment" value="{{request.POST.add_comment}}" rows="5"></textarea>
+						</div>
+						<div class="form_valid_field">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="device_button">
+				<div class="add_client">
+					
+				</div>
+				<div class="add_device_butt submit_inform_repair">
+					<button type="submit" class="add_device_button button_inform_repair">Надіслати</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<form class="search_user_form" action="{% url 'search_user' %}">{% csrf_token %}</form><!--for ajax url-->
+	<form class="view_user_devices_form" action="{% url 'view_user_devices' %}">{% csrf_token %}</form><!--for ajax url-->
+{% endblock %}
+

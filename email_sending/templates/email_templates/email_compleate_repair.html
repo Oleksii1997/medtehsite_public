@@ -1,0 +1,66 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<div class="email_title">
+			<h4>Доброго дня! Ми завершили ремонт приладy {{type_devices|lower}} {{model_device}}</h4>
+			<h5>Статус ремонту: {{repair_status_value}}</h5>
+			<h5>Оберіть бажаний спосіб доставки приладу та повідомте його <em style="color: red;">зворотнім листом</em>, або 
+				за телефоном <em style="color: red;">+380 98 934 0567</em>
+			</h5>
+			<h5>Можливі варіанти доставки:
+				<ul>
+					<li>Нова пошта:
+						<ul>
+							<li>Склад-Склад</li>
+							<li>Склад-Двері</li>
+						</ul>
+					</li>
+					<li>Укрпошта</li>
+					<li>Кур'єрська доставка (тільки по місту Київ)</li>
+					<li>Самовивіз</li>
+				</ul>
+			</h5>
+			<h4>Не забудьте вказати адресу доставки.</h4>
+		</div>
+		<div class="email_content">
+			<div class="devices">
+			<h4>Інформація стосовно ремонту:</h4>
+				<table border="2" cellpadding="5">
+					<tr>
+					    <th>Прилад</th>
+					    <th>Серійний/Інвентарний номери</th>
+					    <th>Комплектація</th>
+					    <th>Заявлена несправність</th>
+					    <th>Виявлені несправності</th>
+					    <th>Проведені роботи</th>
+					    <th>Загальна вартість робіт та матеріалів (з ПДВ), Грн</th>
+					    <th>Статус ремонту</th>
+					</tr>
+					<tr align="center">
+					  	<td>{{type_devices}} {{model_device}}</td>
+					  	<td>{{serial_number}} / {{inventory_number}}</td>
+					  	<td>{{complete_set_device}}</td>
+					  	<td>{{client_malfunction}}</td>
+					  	<td>{{mulfunction}}</td>
+					  	<td>{{performed_work}}</td>
+					  	<td style="color: red;">{{agreed_work_repair_price}}</td>
+					  	<td>{{repair_status_value}}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="footer">
+			<p>
+				Якщо Ви маєте якісь питання, просимо зв'язатися з нами.
+			</p>
+			<p>Тел: +380 98 934 0567</p>
+			<p>Telegram, Viber +380 98 934 0567</p>
+			<p>E-mail: unimed.sensor@gmail.com</p>
+		</div>
+	</body>
+</html>

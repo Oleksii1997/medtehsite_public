@@ -1,0 +1,167 @@
+.container{
+	width: 100%;
+}
+.title_item{
+	padding: 10px 0px;
+}
+.title_item h4{
+	font-size: 22px;
+	color:red;
+	font-style: italic;
+	font-weight: 700;
+	text-align: center;
+}
+.how_buy_list{
+	padding: 20px;
+}
+/* стилі для списка*/
+
+.wsnumber2 li{
+	text-align: justify;
+}
+/* number2 */
+
+ol.wsnumber2{
+        display: block;
+        counter-reset: wslist2;
+        color:#444;
+}
+/* стили для ul */
+ol.wsnumber2 li ul{
+        margin: 1em 0 0em 1em;
+        color:#777;
+        transition: all 0.3s ease 0s;
+        border-left: 1px solid #e3e3e3;
+}
+ol.wsnumber2 ul li{
+        margin: 0 0 1em 2em;
+        list-style: square outside;
+        transition: all 0.3s ease 0s;
+}
+/*#end стили для ul */
+ol.wsnumber2 > li {
+        list-style: none;
+        margin: 0 0 1em 3em;
+        position:relative;
+}
+ol.wsnumber2 > li::before{
+    background: #e3e3e3;
+    border-radius: 0% 50% 50%;
+    color: #333;
+    content: counter(wslist2) ".";
+    counter-increment: wslist2;
+    display: inline-block;
+    height: 32px;
+    left: -40px;
+    line-height: 22px;
+    padding: 5px;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    transition: all 0.3s ease 0s;
+    width: 32px;
+}
+/*вложенный список ol */
+ol.wsnumber2 ol{
+    display: block;
+    counter-reset: wslistc;
+    color:#777;
+    border-left: 1px solid #e3e3e3;
+    padding-left:15px;
+    transition: all 0.3s ease 0s;
+}
+ol.wsnumber2 ol li{
+    margin: 1em 0 0em 3em;
+    list-style: none;
+    position:relative;
+    transition: all 0.3s ease 0s;
+}
+ol.wsnumber2 li{
+    font-size: 18px;
+}
+ol.wsnumber2 li li{
+    font-size: 16px;
+}
+ol.wsnumber2 ol li::before{
+    background: #e3e3e3;
+    border-radius: 0% 50% 50%;
+    color: #333;
+    content: counter(wslistc, lower-latin) ".";
+    counter-increment: wslistc;
+    display: inline-block;
+    height: 32px;
+    left: -40px;
+    line-height: 22px;
+    padding: 5px;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    transition: all 0.3s ease 0s;
+    width: 32px;
+}
+ol.wsnumber2 ol:hover, ol.wsnumber2 ul:hover{
+    border-left: 1px solid #FB456C;
+}
+ol.wsnumber2 li li:hover{
+ 	background: #eee;
+  	color:#333;
+}
+ol.wsnumber2 li:hover:before {
+  	background: #FB456C;
+  	color:#fff;
+}
+.anchor{
+	display: block;
+	margin-top:-200px;
+	padding-top:200px;
+}
+@media(max-width:1600px){	
+}
+@media(max-width:1200px){
+	.for_padding{
+		padding: 50px 0px 0px 10px;
+	}
+	.anchor{
+		display: block;
+		margin-top:-185px;
+		padding-top:185px;
+	}
+}
+@media(max-width:992px){
+}
+@media(max-width:767px){
+	.for_padding{
+		padding: 10px 0px;
+	}
+	ol.wsnumber2 > li {
+        margin: 0px 0px 0px 10px;
+	}
+	.how_buy_list{
+		padding: 0px 20px;
+	}
+	.anchor{
+		display: block;
+		margin-top:-110px;
+		padding-top:110px;
+	}
+}
+@media(max-width:576px){
+	.title_item h4{
+		font-size: 18px;
+	}
+	ol.wsnumber2 li{
+   		font-size: 16px;
+	}
+	ol.wsnumber2 li li{
+    	font-size: 14px;
+	}
+	.for_padding{
+		padding: 0px 0px 10px 0px;
+	}
+	ol.wsnumber2 li ul{
+        margin: 1em 0 0 0;
+        color:#777;
+        transition: all 0.3s ease 0s;
+        border-left: 1px solid #e3e3e3;
+	}
+}

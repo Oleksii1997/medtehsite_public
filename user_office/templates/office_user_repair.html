@@ -1,0 +1,76 @@
+{% extends 'wrapper.html'%}
+{% load static %}
+
+{%block content %}
+	<link rel="stylesheet" href="{% static 'style_user_office_repair.css' %}">
+	<div class="container">
+		
+		<form action="{% url 'office_view_repair' %}" method="post" class="select_date">
+			{% csrf_token %}
+			<div class="date_form">
+				<div class="sub_title_date date_form_item">
+					<h4>Ремонти за період:</h4>
+				</div>
+				<div class="from_date date_form_item">
+					<div class="title_date">
+						<h4>З: </h4>
+					</div>
+					<div class="input_date">
+						<input type="date" name="calendar_from" value="{{from_date|date:'Y-m-d'}}" max="{{max_date|date:'Y-m-d'}}" min="2020-01-01">
+					</div>
+				</div>
+				<div class="to_date date_form_item">
+					<div class="title_date">
+						<h4>До:</h4>
+					</div>
+					<div class="input_date">
+						<input type="date" name="calendar_to" value="{{to_date|date:'Y-m-d'}}" max="{{max_date|date:'Y-m-d'}}" min="2020-01-01">
+					</div>
+				</div>
+				<div class="button_date date_form_item">
+					<div class="select_date">
+						<button type="submit" class="date_select">Обрати період</button>
+					</div>
+				</div>
+			</div>
+		</form>
+
+
+		{% if not all_user_repair %}
+			<div class="not_repair_message">
+				<h4>За обраний період ремонти відсутні!</h4>
+			</div>
+		{% else %}
+			<div class="datatable_container">
+				<table class="device_table display" style="width:100%" border="2" cellpadding="5">
+					<thead class="thead_inform_repair">
+						<tr align="center">
+							<th>Тип приладу</th>
+							<th>Модель</th>
+							<th class="mobile_hidden">Серійний/Інвентарний номери</th>
+							<th>Статус ремонту</th>
+							<th class="mobile_hidden">Статус оплати</th>
+							<th class="mobile_hidden">Дата початку ремонту</th>
+						</tr>
+					</thead>
+					<tbody class="device_in_repair">
+						{% for device in device_repair%}
+							<tr align="center">
+								<td><a href="{% url 'user_device_repair_info' device.id%}">{{device.type_devices.device_type}}</a></td>
+								<td><a href="{% url 'user_device_repair_info' device.id%}">{{device.model_device.device_model}}</td></a>
+								<td class="mobile_hidden">{{device.serial_number}}/{{device.inventory_number}}</td>
+								<td>{{device.repair_status.repair_status}}</td>
+								<td class="mobile_hidden">{{device.pay_status.pay_repair_status}}</td>
+								<td class="mobile_hidden">{{device.created|date:"d-m-Y"}}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		{% endif %}
+
+
+	</div>
+		
+{% endblock %}
+

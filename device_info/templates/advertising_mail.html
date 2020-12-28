@@ -1,0 +1,129 @@
+{% extends 'wrapper.html'%}
+{% load static %}
+
+{%block content %}
+	<link rel="stylesheet" href="{% static 'style_advertising_mail.css' %}">
+	<div class="container">
+		<div class="title_add_device for_padding">
+			<h4>Форма надсилання листів</h4>
+		</div>
+		<div class="help_comment">
+			<p>
+				Дана сторінка створена для відправки електронних листів рекламного або інформаційного характеру
+				клієнтам. В таблиці клієнтів виведена інформація всіх партнерів. В колонці <em>"Відправляти лист?"</em>
+				позначено кому буде відправлятися e-mail, за замовчуванням відправлення буде всім клієнтам. Якщо
+				ви не хочете відправляти комусь лист - приберіть позначку навпроти відповідного клієнта.
+				Якщо в таблиці відсутні електронні адреси на які ви хочете зробити розсилку, в полі <em>"Введіть електронну адресу"</em>
+				їх можна додати. 
+			</p>
+		</div>
+		<form action="{% url 'advertising_mail' %}" method="post" id="advertising_mail_form" class="advertising_mail_form">
+			{% csrf_token %}
+
+			<div class="add_device email_advertis">
+		
+				<div class="search_user flex_device">
+					<div class="form_span email_advertis_span">
+							<span>Введіть електронну адресу:</span>
+					</div>
+					<div class="form_input email_advertis_input">
+						<input type="email" class="email_input" size="128" name="email_advertis" value="">
+						<div class="valid_email_field form_valid_field_hidden">
+							<h4> Введіть коректну електронну адресу </h4>
+						</div>
+						<div class="valid_email_notlength form_valid_field_hidden">
+							<h4> Введіть електронну адресу </h4>
+						</div>
+					</div>
+					<div class="add_email">
+						<button type="button" class="add_email_button">Додати</button>
+					</div>
+					<div class="form_valid_field">
+						
+					</div>
+				</div>
+			</div>
+
+			<div class="add_device list_email_send list_email_send_hidden">
+				<div class="make_email flex_device">
+					<div class="form_span make_email_span">
+						<span>Додані адреси в ручному режимі:</span>
+					</div>
+					<div class="form_input make_email_input">
+						
+					</div>
+					<div class="form_valid_field">
+						
+					</div>
+				</div>
+			</div>
+
+			<div class="datatable_container">
+				<div class="title_table">
+					<h4>Таблиця клієнтів</h4>
+				</div>
+				<table class="device_table display" style="width:100%" border="2" cellpadding="5">
+					<thead class="thead_inform_repair">
+						<tr align="center">
+							<th>Відправляти лист?</br> <input type="checkbox" class="checked_all" checked="checked" name="checked_all"></th>
+							<th>ПІБ</th>
+							<th class="hidden_mobile">Електронна адреса</th>
+							<th class="hidden_mobile">Номер телефону</th>
+							<th>Організація</th>
+							<th class="hidden_mobile">ЄДРПОУ</th>
+						</tr>
+					</thead>
+					<tbody class="device_in_repair">
+						{% for client in all_client %}
+							<tr align="center">
+								<td><input type="checkbox" class="checkbox_advertis_email" checked="checked" name="list_email_checkbox" value="{{client.id}}"></td>
+								<td>{{client.lastname_client|title}} {{client.name_client|title}} {{client.fathername_client|title}}</td>
+								<td class="hidden_mobile">{{client.custumer_email}}</td>
+								<td class="hidden_mobile">{{client.custumer_phone}}</td>
+								<td>{{client.client_work_place}}</td>
+								<td class="hidden_mobile">
+									{% if client.client_edrpou %}
+										{{client.client_edrpou}}
+									{% else %}
+										-
+									{% endif %}
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+
+			<div class="title_add_device">
+				<h4>Вміст листа</h4>
+			</div>
+
+			<div class="add_device">
+				<div class="flex_device text_email">
+					<div class="form_span text_email_span">
+							<span>Текст повідомлення:</span>
+							<span class="required_field" style="color: red;">*</span>
+					</div>
+					<div class="form_textarea text_email_textarea">
+						<textarea name="text_email" required rows="8" class="textarea_content"></textarea>
+						<div class="valid_field form_valid_field_hidden">
+							<h4>Поле обов'язкове для заповнення</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="device_button">
+				<div class="add_client">
+					
+				</div>
+				<div class="add_device_butt submit_inform_repair">
+					<button type="submit" class="add_device_button button_advertising_mail">Надіслати</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script src="{% static 'js/scripts_advertising_mail.js' %}"></script>
+{% endblock %}
+
+

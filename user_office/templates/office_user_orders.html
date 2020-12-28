@@ -1,0 +1,112 @@
+{% extends 'wrapper.html'%}
+{% load static %}
+
+{%block content %}
+	<link rel="stylesheet" href="{% static 'style_office_user.css' %}">
+	<div class="container">
+		
+		<form action="{% url 'office_view_orders' %}" method="post" class="select_date">
+			{% csrf_token %}
+			<div class="date_form">
+				<div class="sub_title_date date_form_item">
+					<h4>Покупки за період:       </h4>
+				</div>
+				<div class="from_date date_form_item">
+					<div class="title_date">
+						<h4>З: </h4>
+					</div>
+					<div class="input_date">
+						<input type="date" name="calendar_from" value="{{from_date|date:'Y-m-d'}}" max="{{max_date|date:'Y-m-d'}}" min="2020-01-01">
+					</div>
+				</div>
+				<div class="to_date date_form_item">
+					<div class="title_date">
+						<h4>До:</h4>
+					</div>
+					<div class="input_date">
+						<input type="date" name="calendar_to" value="{{to_date|date:'Y-m-d'}}" max="{{max_date|date:'Y-m-d'}}" min="2020-01-01">
+					</div>
+				</div>
+				<div class="button_date date_form_item">
+					<div class="select_date">
+						<button type="submit" class="date_select">Обрати період</button>
+					</div>
+				</div>
+			</div>
+		</form>
+
+		{% if not all_user_order %}
+			<div class="not_order_message">
+				<h4>За обраний період замовлення відсутні!</h4>
+			</div>
+		{% endif %}
+		
+		{% if all_user_order %}
+		<div class="datatable_container">
+			<table class="my_order_table display" style="width:100%">
+				<caption> Мої замовлення </caption>
+				<thead>
+					<tr>
+						<th>ID замовлення</th>
+						<th class="mobile_hidden">Дата замовлення</th>
+						<th class="mobile_hidden">Статус замовлення</th>
+						<th>Замовлені прилади</th>
+						<th class="mobile_hidden">Ціна</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for all_user_order in all_user_orders %}
+					<tr align="center">
+						<td>{{all_user_order.order_id}}</td>
+						<td class="mobile_hidden">{{all_user_order.created|date:"d-m-Y"}}</td>
+						<td class="mobile_hidden">{{all_user_order.status}}</td>
+						<td>
+							<div class="list_table">
+								<ol>
+									{% for product in all_user_order.products%}
+										<li>{{product.product_name}} ({{product.number}} штук по {{product.product_price}} Грн) = {{product.total_price_item}} Грн </li>
+									{%endfor%}
+								</ol>
+							</div>
+						</td>
+						<td class="mobile_hidden">{{all_user_order.total_price_order}} Грн</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+				<tfoot>
+					<tr>
+						<th>ID замовлення</th>
+						<th class="mobile_hidden">Дата замовлення</th>
+						<th class="mobile_hidden">Статус замовлення</th>
+						<th>Замовлені прилади</th>
+						<th class="mobile_hidden">Ціна</th>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+		{% endif %}
+
+	</div>
+{% endblock %}
+
+{% block js_stuff %}
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+	<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.20/af-2.3.4/b-1.6.1/b-colvis-1.6.1/b-html5-1.6.1/b-print-1.6.1/cr-1.5.2/fc-3.3.0/kt-2.5.1/r-2.2.3/rg-1.1.1/rr-1.2.6/sp-1.0.1/sl-1.3.1/datatables.min.css"/>
+ 
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.20/af-2.3.4/b-1.6.1/b-colvis-1.6.1/b-html5-1.6.1/b-print-1.6.1/cr-1.5.2/fc-3.3.0/kt-2.5.1/r-2.2.3/rg-1.1.1/rr-1.2.6/sp-1.0.1/sl-1.3.1/datatables.min.js"></script>
+	<script type="text/javascript">
+		console.log("js_stuff");
+		$(document).ready(function(){
+   			$('.my_order_table').dataTable(
+   				{
+   					"order":[[0,"asc"]],
+   					"pageLength":10,
+   				}
+   			);
+   			console.log("js_stuff");
+		});
+	</script>
+{% endblock js_stuff %}

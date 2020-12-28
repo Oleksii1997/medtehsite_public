@@ -1,0 +1,25 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<div class="email_title">
+			<h4>
+				Доброго дня! Ми отримали від Вас відмову ремонту приладу: {{type_devices|lower}} {{model_device}}.<br>
+				Інвентарний номер: {{inventory_number}};<br> Серійний номер {{serial_number}}
+			</h4>
+		</div>
+		
+		<div class="footer">
+			<p>
+				Якщо Ви захочете повернутися до ремонту приладу або маєте якісь інші питання, звʼяжіться з нами.
+			</p>
+			<p>Тел: +380 98 934 0567</p>
+			<p>Telegram, Viber +380 98 934 0567</p>
+			<p>E-mail: unimed.sensor@gmail.com</p>
+		</div>
+	</body>
+</html>

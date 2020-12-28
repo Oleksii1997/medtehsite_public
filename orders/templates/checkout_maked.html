@@ -1,0 +1,18 @@
+{% extends 'wrapper.html'%}
+{% load static %}
+
+{%block content %}
+	<link rel="stylesheet" href="{% static 'style_checkout_maked.css' %}">
+	<div class="container">
+		<div class="flex_make_checkout">
+			<div class="logo_checkout_maked">
+				<div class="checkout_image">
+					<img src="{% static '/media/logo/checkout_maked.png' %}" alt="Замовлення зроблено вдало">
+				</div>
+			</div>
+			<div class="title_checkout_maked">
+				<h4>Дякуємо за замовлення!!! В найближчий час представник компанії зв'яжеться з Вами для обговорення деталей.</h4>
+			</div>
+		</div>
+	</div>
+{% endblock %}

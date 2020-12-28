@@ -1,0 +1,77 @@
+{% extends 'wrapper.html'%}
+{% load static %}
+
+{%block content %}
+	<link rel="stylesheet" href="{% static 'style_device_datatable.css' %}">
+	<div class="container for_padding_mobile">
+		<div class="datatable_container">
+			<table class="client_table display" style="width:100%">
+				<caption> Всі клієнти з ремонту </caption>
+				<thead>
+					<tr>
+						<th class="mobile_hidden">ID</th>
+						<th>Ім'я</th>
+						<th>Номер телефону</th>
+						<th class="hidden_576px">E-mail</th>
+						<th class="hidden_576px">Місце роботи клієнта</th>
+						<th class="mobile_hidden">Код ЄДРПОУ</th>
+						<th class="mobile_hidden">Дата реєстрації</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for client in clients %}
+					<tr align="center">
+						<td class="mobile_hidden">{{client.id}}</td>
+						<td>{{client.name_client|title}} {{client.fathername_client|title}} {{client.lastname_client|title}}</td>
+						<td>{{client.custumer_phone}}</td>
+						<td class="hidden_576px">{{client.custumer_email}}</td>
+						<td class="hidden_576px">{{client.client_work_place|capfirst}}</td>
+						<td class="mobile_hidden">{{client.client_edrpou}}</td>
+						<td class="mobile_hidden">{{client.created|date:"d-m-Y"}}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+				<tfoot>
+					<tr>
+						<th class="mobile_hidden">ID</th>
+						<th>Ім'я</th>
+						<th>Номер телефону</th>
+						<th class="hidden_576px">E-mail</th>
+						<th class="hidden_576px">Місце роботи клієнта</th>
+						<th class="mobile_hidden">Код ЄДРПОУ</th>
+						<th class="mobile_hidden">Дата реєстрації</th>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+{% endblock %}
+
+{% block js_stuff %}
+	<!--for datatable-->
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+	<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.20/af-2.3.4/b-1.6.1/b-colvis-1.6.1/b-html5-1.6.1/b-print-1.6.1/cr-1.5.2/fc-3.3.0/kt-2.5.1/r-2.2.3/rg-1.1.1/rr-1.2.6/sp-1.0.1/sl-1.3.1/datatables.min.css"/>
+ 
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.20/af-2.3.4/b-1.6.1/b-colvis-1.6.1/b-html5-1.6.1/b-print-1.6.1/cr-1.5.2/fc-3.3.0/kt-2.5.1/r-2.2.3/rg-1.1.1/rr-1.2.6/sp-1.0.1/sl-1.3.1/datatables.min.js"></script>
+	
+	<script type="text/javascript">
+		console.log("js_stuff");
+		$(document).ready(function(){
+   			$('.client_table').dataTable(
+   				{
+   					"order":[[0,"asc"]],
+   					"pageLength":10,
+   					dom: 'B<"clear">lfrtip',
+   					buttons: {
+       					name: 'primary',
+       					buttons: [ 'copy', 'excel', 'pdf' ]
+   				    }
+   				}
+   			);
+   			console.log("js_stuff");
+		});
+	</script>
+{% endblock js_stuff %}

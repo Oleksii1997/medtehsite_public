@@ -1,0 +1,123 @@
+{% extends 'wrapper.html'%}
+{% load static %}
+
+
+{% block meta_seo %}
+	<title>Unimed | Юнімед - надійне медичне обладнання</title>
+	<meta name="description" content="Продаж і ремонт медичного обладнання та комплектуючих Unimed | Юнімед | Юнимед в усі регіони України, гарантія робіт та послуг за доступними цінами">
+	<meta name="keywords" content="ремонт медичного обладнанян, купити медичне обладання, медтехніка, ремонт медтехники киев, unimed, юнімед, унімед, юнимед, купити пульсоксиметр, екг, SpO2">
+	<meta name="robots" content="index, follow">
+{% endblock meta_seo %}
+ 
+{%block content %}
+	<link rel="stylesheet" href="{% static 'style_homepage.css' %}">
+
+	<link rel="stylesheet" href="{% static 'js/ovlcarousel/assets/owl.carousel.min.css' %}"> 
+	<link rel="stylesheet" href="{% static 'js/ovlcarousel/assets/owl.theme.default.min.css' %}">
+
+	<script src="{% static 'js/ovlcarousel/owl.carousel.min.js' %}"></script>
+	
+
+<div class="container for_padding_filter">
+	<div class="category_tytle">
+		<h1>Медичне обладнання та комплектуючі Unimed в Україні</h1>
+	</div>
+	<div class="filter_products">
+		<form action="{% url 'product_filter' %}" method="post" id="filter_form" class="filter_form">
+			{% csrf_token %}
+			<div class="filter_container">
+				<div class="title_filter">
+					<h4>Фільтр товарів:</h4>
+				</div>
+				<div class="brand">
+					<a href="#" class="triangle_link_1">
+						<div class="link">
+							<div class="filter_item_title">
+								<span>Бренд виробника</span>
+							</div>
+							<div class="filter_item_triangle">
+								<span class="triangle_filter_1"></span>
+							</div>
+						</div>
+					</a>
+					<div class="list_brand filter_position_item">
+						<ul>
+							{% for brand in brands %}
+								<label><li><input type="checkbox" class="checkbox_brand" id="checkbox_filter" name="list_brand" value="{{brand.id}}"> {{brand.brand_name}}</li></label>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+				<div class="category_product">
+					<a href="#" class="triangle_link_2">
+						<div class="link">
+							<div class="filter_item_title">
+								<span>Категорії товару</span> 
+							</div>
+							<div class="filter_item_triangle">
+								<span class="triangle_filter_2"></span>
+							</div>
+						</div>
+					</a>
+					<div class="list_category filter_position_item">
+						<ul>
+							{% for category_product in category_products %}
+								<label><li> <input type="checkbox" class="checkbox_category" id="checkbox_filter" name="list_category" value="{{category_product.id}}"> {{category_product.category}}</li></label>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+				<div class="button_submit">
+					<button type="submit" class="filter_button"><span>Пошук</span></button>
+				</div>
+			</div>
+		</form>
+	</div>
+			
+	<div class="product_catepory">
+		<div class="category_tytle">
+			<h2>Продукція</h2>
+		</div>
+		<div class="photo_carousel owl-carousel owl-theme" id="image_carousel">
+			{% for category_product in category_products %}
+				<div class="conteiner_one_category">
+					<div class="category_image">
+						<a href="{% url 'product_some_category' category_product.id %}">
+							<!--{% url 'product_some_category' category_product.id %}-->
+							<img src="{{category_product.category_image.url}}" alt="Категорія {{category_product.category}}">
+						</a>
+					</div>
+					<div class="name_category">
+							<a href="{% url 'product_some_category' category_product.id %}">
+								{{category_product.category}}
+							</a>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+	<div class="repair_category">
+		<div class="category_tytle">
+			<h2>Ремонт медтехніки</h2>
+		</div>
+		<div class="photo_carousel owl-carousel owl-theme" id="image_carousel_repair">
+			{% for category_repair in category_repairs %}
+				<div class="conteiner_one_category">
+					<div class="category_image">
+						<a href="{% url 'repair_some_category' category_repair.id %}">
+							<img src="{{category_repair.category_image.url}}" alt="Категорія {{category_repair.product_category_name}}">
+						</a>
+					</div>
+					<div class="name_category">
+						<a href="{% url 'repair_some_category' category_repair.id %}">
+							{{category_repair.product_category_name}}	
+						</a>	
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+	<script src="{% static 'js/carousel_homepage.js' %}"></script>
+
+</div>
+{% endblock %}

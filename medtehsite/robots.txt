@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /users/registation/
+
+Host: https://unimed.kiev.ua
+
+Sitemap: https://unimed.kiev.ua/sitemap.xml

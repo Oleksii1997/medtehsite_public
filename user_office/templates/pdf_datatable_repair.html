@@ -1,0 +1,129 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<style type="text/css">
+			@page { size: A4; margin: 1cm; }
+			@font-face {
+   				font-family: Arial; 
+  				src: url("stylesheet/fonts/Arial/arial-unicode-ms.ttf") format("ttf")
+  			}
+  			div { font-family: Arial; }
+  		 	th, h4{
+  				font-family: Arial;
+  			}
+		</style>
+		<link rel="stylesheet" href="stylesheet/style_pdf_datatable_repair.css">
+	</head>
+	<body>
+	<div class="container">
+		<div class="title_user_repair">
+			<h4>Інформація про стан ремонту приладу "{{device.type_devices.device_type}} {{device.model_device.device_model}}"</h4>
+		</div>
+
+		<div class="datatable_container">
+			<table class="device_table display" style="width:100%">
+				<tbody class="device_in_repair">
+					<tr align="center">
+						<th valign="middle">Тип приладу</th>
+						<td valign="middle">{{device.type_devices.device_type}}</td>
+					</tr>
+					<tr align="center">
+						<th>Модель приладу</th>
+						<td>{{device.model_device.device_model}}</td>
+					</tr>
+					<tr align="center">
+						<th>Інвентарний номер</th>
+						<td>{{device.inventory_number}}</td>
+					</tr>
+					<tr align="center">
+						<th>Серійний номер</th>
+						<td>{{device.serial_number}}</td>
+					</tr>
+					<tr align="center">
+						<th>Статус ремонту</th>
+						<td style="color: red;">{{device.repair_status.repair_status}}</td>
+					</tr>
+					<tr align="center">
+						<th>Статус оплати</th>
+						<td style="color: red;">{{device.pay_status.pay_repair_status}}</td>
+					</tr>
+					{% if device.repair_status.id >= 2 and device.repair_status.id <= 6%}
+						<tr align="center">
+							<th>Гарантійний період</th>
+							<td style="color: red;">
+								{{device.warranty_period.warranty_periods}}</br>
+								{% if device.repair_status.id == 6 and device.start_warranty %}
+									(з {{device.start_warranty|date:"d-m-Y"}} до {{device.stop_warranty|date:"d-m-Y"}})
+								{% endif %}
+							</td>
+						</tr>
+					{% endif %}
+					<tr align="center">
+						<th>Заявлена клієнтом несправність</th>
+						<td>{{device.client_malfunction}}</td>
+					</tr>
+					<tr align="center">
+						<th>Комплектація надходження</th>
+						<td>{{device.complete_set_device}}</td>
+					</tr>
+					{% if device.add_comment %}
+						<tr align="center">
+							<th>Додатковий коментар</th>
+							<td>{{device.add_comment}}</td>
+						</tr>
+					{% endif %}
+					{% if device.repair_status.id >= 2 %}
+						<tr align="center">
+							<th>Несправність після огляду</th>
+							<td>{{device.mulfunction}}</td>
+						</tr>
+						<tr align="center">
+							<th>Вартість ремонту з ПДВ, грн</th>
+							<td style="color: red;">{{device.price_repair }}</td>
+						</tr>
+						<tr align="center">
+							<th>Рекомендовані заміни</th>
+							<td>{{device.recommendations_repair}}</td>
+						</tr>
+						<tr align="center">
+							<th>Вартість рекомедованих робіт з ПДВ, грн</th>
+							<td style="color: red;">{{device.recommendations_repair_price}}</td>
+						</tr>
+					{% endif %}
+					{% if device.repair_status.id >= 3 and device.repair_status.id <= 6 %}
+						<tr align="center">
+							<th>Погоджені роботи</th>
+							<td>{{device.agreed_work_repair}}</td>
+						</tr>
+						<tr align="center">
+							<th>Загальна вартість погоджених робіт та матеріалів з ПДВ, грн</th>
+							<td style="color: red; font-weight: 700;">{{device.agreed_work_repair_price}}</td>
+						</tr>
+					{% endif %}
+					{% if device.repair_status.id == 5 or device.repair_status.id == 6 %}
+						<tr align="center">
+							<th>Проведені роботи</th>
+							<td>{{device.performed_work}}</td>
+						</tr>
+					{% endif %}
+					{% if device.repair_status.id == 6 %}
+						<tr align="center">
+							<th>Спосіб доставки</th>
+							<td>{{device.method_delivery.delivery_method}}</td>
+						</tr>
+						{% if device.invoice %}
+							<tr align="center">
+								<th>Номер для відстеження доставки</th>
+								<td>{{device.invoice}}</td>
+							</tr>
+						{% endif %}
+					{% endif %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	</body>
+</html>

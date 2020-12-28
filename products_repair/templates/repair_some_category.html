@@ -1,0 +1,122 @@
+{% extends 'wrapper.html'%}
+{% load static %}
+
+{% block meta_seo %}
+	<title>Ремонт {{category_name}} - гарантія робіт</title>
+	<meta name="description" content="Професійна діагностика та ремонт {{category_name}}, з гарантією за доступною ціною. Ремонт медтехніки в Україні">
+	<meta name="keywords" content="ремонт {{category_name}}, ремонт медтехніки, ремонт Unimed, ремонт Юнімед, ремонт Унімед, сервіс медичного обладнання">
+	<meta name="robots" content="index, follow">
+{% endblock meta_seo %}
+
+{%block content %}
+	<link rel="stylesheet" href="{% static 'style_repair_page.css' %}">
+
+	<link rel="stylesheet" href="{% static 'js/ovlcarousel/assets/owl.carousel.min.css' %}"> 
+	<link rel="stylesheet" href="{% static 'js/ovlcarousel/assets/owl.theme.default.min.css' %}">
+
+	<script src="{% static 'js/ovlcarousel/owl.carousel.min.js' %}"></script>
+
+	<div class="select_product_conteiner">
+		<div class="container">
+			<div class="product_container">
+				<div class="product_image owl-carousel owl-theme" id="image_carousel">
+					{% for repair_image in repair_images %}
+						<div class="product_photo">
+							<img src="{{repair_image.category_image.url}}" alt="Зображено {{category_name}}">
+						</div>
+					{% endfor %}
+				</div>
+
+				<script src="{% static 'js/repair_page.js' %}"></script>
+
+				<div class="product_information">
+					<div class="product_name">
+						<h1>Ремонт в категорії "{{category_name}}"</h1>
+					</div>
+					
+					<div class="technical_description">
+						<h4>Ремонтні роботи в категорії "{{category_name}}":</h4>
+						<div class="repair_list">
+							<ul>
+								{% for repair_description in repair_descriptions %}
+									<li>{{repair_description.malfunction_descript}}</li>
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+					<div class="description">
+						<h4>
+							Якщо Ви маєте якісь питання, зверніться до нас за телефоном вказаним на сайті або
+							залиште заявку на консультацію спеціаліста заповнивши форму нижче та натиснувши на кнопку "Замовити консультацію" і ми
+							в найближчий час звʼяжемося з Вами.
+						</h4>
+					</div>
+					<div class="contact_form">
+						<form action="{% url 'need_consultation'%}" class="contact_information" id="contact_form">
+							{% csrf_token %}
+						<div class="contact_input">
+							<div class="contact_field name_client">
+								<div class="span_form name_client_span">
+									<span>Ваше Імʼя?</span>
+								</div>
+								<div class="input_form">
+									<input type="text" class="name_client_input" required="required" size="64" name="name_client" value="{{user_information.first_name}}">
+									<div class="error_message error_name error_name_hidden">
+										<h4>Уведіть Ваше імʼя</h4>
+									</div>
+								</div>
+							</div>
+							<div class="contact_field phone_client">
+								<div class="span_form phone_client_span">
+									<span>Номер телефону:</span>
+								</div>
+								<div class="input_form phone_client_inpur">
+									<input type="tel" class="phone_client_input" required="required" placeholder="0953423123" minlength="10" maxlength="10" size="10" name="phone_client" value="{{user_information.username}}">
+									<div class="error_message error_phone error_name_hidden">
+										<h4>Уведіть коректний номер телефону в форматі "0953423123"</h4>
+									</div>
+								</div>
+							</div>
+							<div class="contact_field email_client">
+								<div class="span_form email_client_span">
+									<span>E-mail:</span>
+								</div>
+								<div class="input_form email_client_inpur">
+									<input type="email" class="email_client_input" required="required" size="64" name="email_client" value="{{user_information.email}}">
+									<div class="error_message error_email error_name_hidden">
+										<h4>Уведіть коректну електронну адресу</h4>
+									</div>
+								</div>
+							</div>
+						</div>
+							<div class="need_consultation">
+								<button type="submit" class="need_help_button" id="need_help">Замовити консультацію</button>
+							</div>
+						</form>
+					</div>
+					<div class="success_massage success_logo_hidden">
+						<div class="success_help_messag">
+							<div class="checkout_image">
+								<img src="{% static '/media/logo/checkout_maked.png' %}" alt="Заявку на консультацію відправлено">
+							</div>
+							<div class="title_checkout_maked">
+								<h4>Заявку на консультацію відправлено, в найближчий час ми Вам зателефонуємо</h4>
+							</div>
+						</div>
+					</div>
+					<div class="no_success_massage success_logo_hidden">
+						<div class="success_help_messag">
+							<div class="checkout_image">
+								<img src="{% static '/media/logo/checkout_unsuccessful.png' %}" alt="Щось пішло не так, спробуйте пізніше">
+							</div>
+							<div class="title_checkout_maked">
+								<h4>Вибачте, трапилась непередбачувана помилка, спробуйте пізніше</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+

@@ -1,0 +1,162 @@
+{% extends 'wrapper.html'%}
+{% load static %}
+
+{% block meta_seo %}
+	<title>Unimed | Юнімед | Юнимед - контактна інформація</title>
+	<meta name="description" content="Опис діяльності компанії, медтехніка Unimed | Юнімед, контакти, послуги та умови співпраці">
+	<meta name="keywords" content="контакти Unimed, контакти Юнімед, послуги unimed, медичне обладнання в Україні, медтехніка, гарантія ремонту">
+	<meta name="robots" content="index, follow">
+{% endblock meta_seo %}
+ 
+{%block content %}
+	<link rel="stylesheet" href="{% static 'style_about_us.css' %}">
+	<script src="{% static 'js/contact_form.js' %}"></script>
+
+	<div class="container">
+			<div class="about_us_info">
+				<div class="about_us_title">
+					<h4>Опис діяльності</h4>
+				</div>
+				<div class="about_us_content">
+					<p>
+						Сферою діяльності нашої компанії є постачання, ремонт та консультаційна допомога
+						в підборі якісного та надійного медичного обладнання. Ремонт приладів проводиться з використанням
+						сучасних технологій та тестових систем, надається гарантія, термін якої залежить від
+						конкретного випадку (зазвичай 12 місяців). Зручний інтерфейс сайту допоможе в
+						постійному відслідковування статусів замовлень та стану ремонту. Будемо раді допомогти Вам, звертайтесь! 
+					</p>
+				</div>
+			</div>
+			<div class="contact_information">
+				<div class="contact_content">
+					<div class="item_contact">
+						<div class="logo_container">
+							<div class="logo_img">
+								<img src="{% static '/media/logo/location_logo.jpg' %}" alt="Наша адреса">
+							</div>
+						</div>
+						<div class="logo_info">
+							<h4>Україна, м. Київ, вул. Деміївська 35</h4>
+						</div>
+					</div>
+					<div class="item_contact">
+						<div class="logo_container">
+							<div class="logo_img">
+								<img src="{% static '/media/logo/email_logo.jpg' %}" alt="Електронна адреса">
+							</div>
+						</div>
+						<div class="logo_info">
+							<h4><a href="mailto:unimed.sensor@gmail.com">unimed.sensor@gmail.com</a></h4>
+						</div>
+					</div>
+					<div class="item_contact">
+						<div class="logo_container phone_contact">
+							<div class="logo_img phone_item">
+								<img src="{% static '/media/logo/telegram.jpg' %}" alt="Telegram">
+							</div>
+							<div class="logo_img phone_item">
+								<img src="{% static '/media/logo/viber.jpg' %}" alt="Viber">
+							</div>
+							<div class="logo_img phone_item">
+								<img src="{% static '/media/logo/phone.jpg' %}" alt="Номер телефону">
+							</div>
+						</div>
+						<div class="logo_info phone_number">
+							<h4><a href="tel:+38 (098) 934-05-67">+38(098)934-05-67</a></h4>
+						</div>
+					</div>
+					<div class="item_contact">
+						<div class="logo_container">
+							<div class="logo_img">
+								<img src="{% static '/media/logo/clock.jpg' %}" alt="Telegram">
+							</div>
+						</div>
+						<div class="logo_info">
+							<h4>Пн-Пт 09:00-18:00</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="about_us_contact_form">
+				<div class="description">
+					<h4>
+						Якщо Ви маєте якісь питання, зверніться до нас за телефоном, вказаним на сайті або
+						залиште заявку на консультацію спеціаліста, заповнивши форму нижче та натиснувши на кнопку "Замовити консультацію", і ми
+						в найближчий час звʼяжемося з Вами.
+					</h4>
+				</div>
+				<div class="contact_form">
+					<form action="{% url 'need_consultation'%}" class="contact_information" id="contact_form">
+						{% csrf_token %}
+					<div class="contact_input">
+						<div class="contact_field name_client">
+							<div class="span_form name_client_span">
+								<span>Ваше Імʼя?</span>
+							</div>
+							<div class="input_form">
+								<input type="text" class="name_client_input" required="required" size="64" name="name_client" value="{{user_information.first_name}}">
+								<div class="error_message error_name error_name_hidden">
+									<h4>Уведіть Ваше імʼя</h4>
+								</div>
+							</div>
+						</div>
+						<div class="contact_field phone_client">
+							<div class="span_form phone_client_span">
+								<span>Номер телефону:</span>
+							</div>
+							<div class="input_form phone_client_inpur">
+								<input type="tel" class="phone_client_input" required="required" placeholder="0953423123" minlength="10" maxlength="10" size="10" name="phone_client" value="{{user_information.username}}">
+								<div class="error_message error_phone error_name_hidden">
+									<h4>Уведіть коректний номер телефону в форматі "0953423123"</h4>
+								</div>
+							</div>
+						</div>
+						<div class="contact_field email_client">
+							<div class="span_form email_client_span">
+								<span>E-mail:</span>
+							</div>
+							<div class="input_form email_client_inpur">
+								<input type="email" class="email_client_input" required="required" size="64" name="email_client" value="{{user_information.email}}">
+								<div class="error_message error_email error_name_hidden">
+									<h4>Уведіть коректну електронну адресу</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+						<div class="need_consultation">
+							<button type="submit" class="need_help_button" id="need_help">Замовити консультацію</button>
+						</div>
+					</form>
+				</div>
+				<div class="success_massage success_logo_hidden">
+					<div class="success_help_messag">
+						<div class="checkout_image">
+							<img src="{% static '/media/logo/checkout_maked.png' %}" alt="Заявку на консультацію відправлено">
+						</div>
+						<div class="title_checkout_maked">
+							<h4>Заявку на консультацію відправлено, в найближчий час ми Вам зателефонуємо</h4>
+						</div>
+					</div>
+				</div>
+				<div class="no_success_massage success_logo_hidden">
+					<div class="success_help_messag">
+						<div class="checkout_image">
+							<img src="{% static '/media/logo/checkout_unsuccessful.png' %}" alt="Щось пішло не так, спробуйте пізніше">
+						</div>
+						<div class="title_checkout_maked">
+							<h4>Вибачте, трапилась непередбачувана помилка, спробуйте пізніше</h4>							
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="title_map">
+				<h4>Наше місцезнаходження</h4>
+			</div>
+			<div id="map">
+				<div class="iframe_map">
+					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2970.2730860058177!2d30.50745755140056!3d50.40178629865028!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4cf335f8eb5c3%3A0x407c1b9d17533b9a!2z0YPQuy4g0JTQtdC80LXQtdCy0YHQutCw0Y8sIDM1LCDQmtC40LXQsiwgMDIwMDA!5e1!3m2!1sru!2sua!4v1600801773580!5m2!1sru!2sua" align="absmiddle" width="1000" height="500" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+				</div>
+			</div>
+	</div>
+
+{% endblock %}

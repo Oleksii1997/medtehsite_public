@@ -1,0 +1,97 @@
+{% extends 'wrapper.html'%}
+{% load static %}
+
+{% block meta_seo %}
+	<title>{{select_product.product_name}} Unimed</title>
+	<meta name="description" content="Купити {{select_product.product_name}} Unimed. Якість та надійність за доступною ціною">
+	<meta name="keywords" content="{{select_product.product_name}}, медичне обладнання, Unimed, Юнімед, Юнимед, Унімед">
+	<meta name="robots" content="index, follow">
+{% endblock meta_seo %}
+
+{%block content %}
+	<link rel="stylesheet" href="{% static 'style_product_page.css' %}">
+
+	<link rel="stylesheet" href="{% static 'js/ovlcarousel/assets/owl.carousel.min.css' %}"> 
+	<link rel="stylesheet" href="{% static 'js/ovlcarousel/assets/owl.theme.default.min.css' %}">
+
+	<script src="{% static 'js/ovlcarousel/owl.carousel.min.js' %}"></script>
+
+	<div class="select_product_conteiner">
+		<div class="container">
+			<div class="product_container">
+					<div class="product_image owl-carousel owl-theme">
+						{% for product_photo in select_product_photo %}
+							<div class="product_photo">
+								<img src="{{product_photo.image.url}}" alt="{{product_photo.product.product_name}}">
+							</div>
+						{% endfor %}
+					</div>
+
+					<script src="{% static 'js/carousel.js' %}"></script>
+
+					<div class="product_information">
+						<div class="product_name">
+							<h1>{{select_product.product_name}}</h1>
+						</div>
+						<div class="price_status_basket">
+							<div class="product_price">
+								Ціна: {{select_product.product_price}} грн
+							</div>
+							<div class="status_product">
+								{{select_product.status_product}}
+							</div>
+							<!--action="#" method="post" enctype="multipart/form-data"-->
+								<div class="form_add_busket">
+									<form id="form_buying_product" action="{% url 'basket_adding' %}">
+										<!--{% csrf_token %}-->
+										<div class="add_in_basket">
+											<div class="form">
+												<!--action="#" method="post" enctype="multipart/form-data-->
+												<input type="number" value="1" min="1" max="1000" name="number" id="number">	
+											</div>
+											{%if username is not None %}
+												<div class="button button_none_user">
+													<button type="submit" id="submit_button" class="button_buy"
+															data-product_id = "{{select_product.id}}"
+															data-product_name = "{{select_product.product_name}}">
+														В корзину
+													</button>
+												</div>
+											{% else %}
+												<div class="button">
+													<button type="reset" id="submit_reset_button" class="button_buy"
+															data-product_id = "{{select_product.id}}"
+															data-product_name = "{{select_product.product_name}}">
+														В корзину
+													</button>
+												</div>
+											{% endif %}
+										</div>
+									</form>
+								</div>
+						</div>
+						{% if select_product.product_discount %}
+							<div class="price_with_discount">
+								Зі знижкою: {{new_price}} грн
+							</div>
+						{% endif %}
+						{%if username == None%}
+							<div class="need_authorisarion_text">
+								<h4>Для того, щоб додати товар в кошик, авторизуйтесь або зареєструйтесь!!!</h4>
+							</div>
+						{% endif %}
+						<div class="description">
+							<h4>Опис:</h4>
+							{{select_product.description|safe}}
+						</div>
+						<div class="technical_description">
+							
+							{{select_product.technical_characteristic|safe}}
+						</div>
+
+					</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+

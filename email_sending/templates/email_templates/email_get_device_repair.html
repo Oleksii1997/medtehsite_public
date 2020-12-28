@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<div class="email_title">
+			<h4>Доброго дня! Ваш прилад отриманий в ремонт</h4>
+		</div>
+		<div class="email_content">
+			<div class="devices">
+			<p>Інформація про прилад який надійшов в ремонт:</p>
+				<table border="2" cellpadding="5">
+					<tr>
+					    <th>Тип приладу</th>
+					    <th>Модель</th>
+					    <th>Серійний/Інвентарний номери</th>
+					    <th>Комплектація</th>
+					    <th>Заявлена несправність</th>
+					    <th>Статус ремонту</th>
+					</tr>
+					<tr align="center">
+					  	<td>{{type_devices}}</td>
+					  	<td>{{model_device}}</td>
+					  	<td>{{serial_number}} / {{inventory_number}}</td>
+					  	<td>{{complete_set_device}}</td>
+					  	<td>{{client_malfunction}}</td>
+					  	<td>{{repair_status_value}}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="footer">
+			<p>
+				Цей лист згенерований автоматично, будь ласка не відповідайте на нього. 
+				Якщо Ви помітили якусь неточність в надісланих даних, або маєте якісь питання,
+				зв'яжіться з нами:
+			</p>
+			<p>Тел: +380 98 934 0567</p>
+			<p>Telegram, Viber +380 98 934 0567</p>
+			<p>E-mail: unimed.sensor@gmail.com</p>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<div class="email_title">
+			<h4>
+				Доброго дня! Вам відправлено прилад: {{type_devices|lower}} {{model_device}}.<br>
+				Інвентарний номер: {{inventory_number}};<br> Серійний номер {{serial_number}}
+			</h4>
+			<h5>
+				Спосіб доставки: {{method_delivery_value}}<br>
+				{% if method_delivery == '2' %}
+					Номер для відстеження: {{invoice}}<br>
+					Відстежити можна на <a href="https://novaposhta.ua/tracking">сайті Нової пошти</a><br>
+				{% elif method_delivery == '5' %}
+					Номер для відстеження: {{invoice}}<br>
+					Відстежити можна на <a href="https://track.ukrposhta.ua/tracking_UA.html">сайті Укрпошти</a><br>
+				{% else %}
+				{%endif%}
+			</h5>
+			
+		</div>
+		
+		<div class="footer">
+			<h4>Гарантійний термін починається з моменту відправки і триває <em style="color: red;">{{warranty_period_value}}</em> на комплектуючі,
+				ремонтні роботи та затрачені матеріали</h4>
+			<p>
+				Якщо Ви маєте якісь питання, просимо зв'язатися з нами.
+			</p>
+			<p>Тел: +380 98 934 0567</p>
+			<p>Telegram, Viber +380 98 934 0567</p>
+			<p>E-mail: unimed.sensor@gmail.com</p>
+		</div>
+	</body>
+</html>

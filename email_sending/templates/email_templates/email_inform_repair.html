@@ -1,0 +1,172 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<div class="email_title">
+			<h4>
+				Доброго дня! Повідомляємо Вам про стан ремонту обладнання.
+			</h4>
+		</div>
+		{% if add_comment %}
+			<div>
+				<h4><em style="color: red;">Додатковий коментар: </em>{{add_comment}}</h4>	
+			</div>
+		{%endif%}
+		
+		{% if selected_device%}
+			<table border="2" cellpadding="5" cellspacing="0">
+				<tr align="center">
+					<th>ID ремонту</th>
+					{% for device in selected_device %}
+						<td>{{device.id}}</td>
+					{% endfor %}
+				</tr>
+				<tr align="center">
+					<th>Тип приладу</th>
+					{% for device in selected_device %}
+						<td>{{device.type_devices}}</td>
+					{% endfor %}
+				</tr>
+				<tr align="center">
+					<th>Модель приладу</th>
+					{% for device in selected_device %}
+						<td>{{device.model_device}}</td>
+					{% endfor %}
+				</tr>
+				<tr align="center">
+					<th>Серійний/Інвентарний номери</th>
+					{% for device in selected_device %}
+						<td>{{device.serial_number}} / {{device.inventory_number}}</td>
+					{% endfor %}
+				</tr>
+				<tr align="center">
+					<th>Статус ремонту</th>
+					{% for device in selected_device %}
+						<td style="color: red;">{{device.repair_status}}</td>
+					{% endfor %}
+				</tr>
+				<tr align="center">
+					<th>Статус оплати</th>
+					{% for device in selected_device %}
+						<td style="color: red;">{{device.pay_status}}</td>
+					{% endfor %}
+				</tr>
+				<tr align="center">
+					<th>Заявлена несправність</th>
+					{% for device in selected_device %}
+						<td>{{device.client_malfunction}}</td>
+					{% endfor %}
+				</tr>
+				<tr align="center">
+					<th>Комплектація надходження</th>
+					{% for device in selected_device %}
+						<td>{{device.complete_set_device}}</td>
+					{% endfor %}
+				</tr>
+				<tr align="center">
+					<th>Несправність після технічного огляду</th>
+					{% for device in selected_device %}
+						{% if device.mulfunction %}
+							<td>{{device.mulfunction}}</td>
+						{% else %}
+							<td> Проводиться технічна діагностика </td>
+						{% endif %}
+					{% endfor %}
+				</tr>
+				<tr align="center">
+					<th>Ціна ремонту (з ПДВ), грн</th>
+					{% for device in selected_device %}
+						<td style="color: red;">{{device.price_repair}}</td>
+					{% endfor %}
+				</tr>
+				<tr align="center">
+					<th>Рекомендації</th>
+					{% for device in selected_device %}
+						{% if device.mulfunction %}
+							<td>{{device.recommendations_repair}}</td>
+						{% else %}
+							<td> Проводиться технічна діагностика </td>
+						{% endif %}
+					{% endfor %}
+				</tr>
+				<tr align="center">
+					<th>Ціна рекомендованих робіт (з ПДВ), грн</th>
+					{% for device in selected_device %}
+						<td style="color: red;">{{device.recommendations_repair_price}}</td>
+					{% endfor %}
+				</tr>
+				<tr align="center">
+					<th>Загальна ціна (з ПДВ), грн</th>
+					{% for device in selected_device %}
+						<td style="color: red;">{{device.all_price}}</td>
+					{% endfor %}
+				</tr>
+				<tr align="center">
+					<th>Гарантійний період</th>
+					{% for device in selected_device %}
+						{% if device.mulfunction %}
+							<td>{{device.warranty_period}}</td>
+						{% else %}
+							<td> Оцінюється </td>
+						{% endif %}
+					{% endfor %}
+				</tr>
+				<tr align="center">
+					<th>Погоджені роботи</th>
+					{% for device in selected_device %}
+						{% if device.agreed_work_repair %}
+							<td>{{device.agreed_work_repair}}</td>
+						{% else %}
+							<td> Погоджуються </td>
+						{% endif %}
+					{% endfor %}
+				</tr>
+				<tr align="center">
+					<th>Ціна погоджених робіт (з ПДВ), грн</th>
+					{% for device in selected_device %}
+						<td style="color: red;">{{device.agreed_work_repair_price}}</td>
+					{% endfor %}
+				</tr>
+				<tr align="center">
+					<th>Проведені роботи</th>
+					{% for device in selected_device %}
+						{% if device.performed_work %}
+							<td>{{device.performed_work}}</td>
+						{% else %}
+							<td> Ремонт триває </td>
+						{% endif %}
+					{% endfor %}
+				</tr>
+				<tr align="center">
+					<th>Спосіб доставки</th>
+					{% for device in selected_device %}
+						<td>{{device.method_delivery}}</td>
+					{% endfor %}
+				</tr>
+				<tr align="center">
+					<th>Номер для відстеження</th>
+					{% for device in selected_device %}
+						{% if device.invoice %}
+							<td>{{device.invoice}}</td>
+						{% else %}
+							<td> - </td>
+						{% endif %}
+					{% endfor %}
+				</tr>
+			</table>
+		{% endif %}
+
+		<div class="footer">
+			<p>
+				Якщо Ви маєте якісь питання, просимо зв'язатися з нами.
+			</p>
+			<p>Тел: +380 98 934 0567</p>
+			<p>Telegram, Viber +380 98 934 0567</p>
+			<p>E-mail: unimed.sensor@gmail.com</p>
+		</div>
+	</body>
+</html>

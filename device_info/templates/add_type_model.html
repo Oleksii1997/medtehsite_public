@@ -1,0 +1,49 @@
+{% extends 'wrapper.html'%}
+{% load static %}
+
+{%block content %}
+	<link rel="stylesheet" href="{% static 'style_add_device.css' %}">
+<div class="container for_padding">
+	<div class="title_add_device">
+		<h4>Додати модель або тип приладу</h4>
+	</div>
+	<form action="{% url 'add_type_model' %}" method="post">
+		{% csrf_token %}
+		<div class="add_device device_admission">
+			<div class="type_device flex_device">
+				<div class="form_span device_type_span">
+						<span>Тип приладу:</span>
+						<span class="required_field">*</span>
+				</div>
+				<div class="form_input type_device">
+					<input type="text" size="64" required name="device_type" value="{{request.POST.device_type}}">
+				</div>
+				<div class="form_valid_field">
+					
+				</div>
+			</div>
+
+			<div class="model_device flex_device">
+				<div class="form_span device_model_span">
+						<span>Модель приладу:</span>
+						<span class="required_field">*</span>
+				</div>
+				<div class="form_input model_device">
+					<input type="text" size="64" required name="device_model" value="{{request.POST.device_model}}">
+				</div>
+				<div class="form_valid_field">
+					
+				</div>
+			</div>
+			<div class="device_button">
+				<div class="add_client">
+					<button type="submit" class="add_device_button">Додати прилад</button>
+				</div>
+				<div class="add_device_butt">
+				
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+{% endblock %}

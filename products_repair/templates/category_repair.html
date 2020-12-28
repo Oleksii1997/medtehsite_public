@@ -1,0 +1,36 @@
+{% extends 'wrapper.html'%}
+{% load static %}
+
+{% block meta_seo %}
+	<title>Ремонт медтехніки в Україні за доступрими цінами</title>
+	<meta name="description" content="Професійна діагностика та ремонт медичного обладнання, з гарантією за доступною ціною">
+	<meta name="keywords" content="ремонт медтехніки, ремонт медтехники киев, ремонт дефібриляторів, ремонт шприцевих дозаторів, ремонт моніторів пацієнта, ремонт пульсоксиметрів, ремонт тонометрів, ремонт екг ">
+	<meta name="robots" content="index, follow">
+{% endblock meta_seo %}
+
+{%block content %}
+	<link rel="stylesheet" href="{% static 'style_category_product.css' %}">
+	<div class="category_conteiner">
+		<div class="container">
+			<div class="category_tytle">
+				<h1>Категорії медичного обладнання, яке ми ремонтуємо</h1>
+			</div>
+			<div class="category">
+				{% for category_repair in category_repairs %}
+					<div class="conteiner_one_category">
+						<div class="category_image">
+							<a href="{% url 'repair_some_category' category_repair.id %}">
+								<img src="{{category_repair.category_image.url}}" alt="Категорія {{category_repair.product_category_name}}">
+							</a>
+						</div>
+						<div class="name_category">
+							<a href="{% url 'repair_some_category' category_repair.id %}">
+								{{category_repair.product_category_name}}	
+							</a>	
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock %}
